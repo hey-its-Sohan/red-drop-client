@@ -73,7 +73,7 @@ const Login = () => {
 
       {/* Right side with form */}
       <div className="w-full md:w-1/2 flex items-center justify-center bg-base-100 px-6 py-12">
-        <div className="w-full max-w-md space-y-6">
+        <div className="w-full bg-white p-5 shadow-md rounded-lg max-w-md space-y-6">
           <h2 className="text-3xl font-bold text-primary text-center">Welcome to RedDrop</h2>
           <p className="text-sm text-accent text-center">Please login to continue</p>
 

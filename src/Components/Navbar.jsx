@@ -16,9 +16,9 @@ const Navbar = () => {
   }
 
   const navItems = <>
-    <li className='text-white text-lg'><NavLink>Donation Request</NavLink></li>
-    <li className='text-white text-lg'><NavLink>Blogs</NavLink></li>
-    <li className='text-white text-lg'><NavLink>Fund Details</NavLink></li>
+    <li className='text-white text-lg'><NavLink to={"/donation-request"}>Donation Request</NavLink></li>
+    <li className='text-white text-lg'><NavLink to={"/blogs"}>Blogs</NavLink></li>
+    <li className='text-white text-lg'><NavLink to={"/fund-details"}>Fund Details</NavLink></li>
   </>
 
   return (
