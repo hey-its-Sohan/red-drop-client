@@ -11,6 +11,8 @@ import DonationRequest from "../Pages/DonationRequest";
 import Blogs from "../Pages/Blogs";
 import FundDetails from "../Pages/FundDetails";
 
+import DashboardLayout from "../Layouts/DashboardLayout";
+
 
 
 export const router = createBrowserRouter([
@@ -46,4 +48,11 @@ export const router = createBrowserRouter([
       },
     ]
   },
+  {
+    path: '/dashboard',
+    Component: DashboardLayout,
+    children: [
+
+    ]
+  }
 ]);

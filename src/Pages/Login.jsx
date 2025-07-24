@@ -49,9 +49,20 @@ const Login = () => {
 
     try {
       setLoading(true)
-      await googleSignIn();
-      toast.success('Login Successful!');
-      navigate(location?.state || '/');
+      await googleSignIn()
+        .then(result => {
+          const user = result.user
+
+          // update user info in the Database
+          const userInfo = {
+            email: user.email,
+            role: 'user',  //default role for every first user
+            created_at: new Date().toISOString()
+          }
+
+          toast.success('Login Successful!');
+          navigate(location?.state || '/');
+        });
     } catch (error) {
       console.error("Google login error:", error);
       toast.error('Google login failed. Please try again.');
