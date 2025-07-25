@@ -13,6 +13,7 @@ import FundDetails from "../Pages/FundDetails";
 
 import DashboardLayout from "../Layouts/DashboardLayout";
 import DashboardHome from "../DashboardPages/DashboardHome";
+import UserProfile from "../DashboardPages/UserProfile";
 
 
 
@@ -59,6 +60,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/dashboard/profile',
+        Component: UserProfile
       },
       {
         path: "/dashboard/my-donation-requests",

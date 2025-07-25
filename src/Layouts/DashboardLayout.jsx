@@ -85,7 +85,7 @@ const DashboardLayout = () => {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 bg-base-100 px-6 lg:px-0 md:ml-64">
+        <main className=" max-w-screen-xl mx-auto bg-base-100 px-6 lg:px-0 ">
           <Outlet />
         </main>
       </div>
