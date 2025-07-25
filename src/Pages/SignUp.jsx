@@ -1,14 +1,27 @@
-import React, { use, useState } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import loginImg from '../assets/mainLogo.png';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../Contexts/AuthContext';
 import { useLocation, useNavigate } from 'react-router';
+import districts from '../District_Upazila_Data/district.json';
+import upazilas from '../District_Upazila_Data/upazila.json';
 
 const SignUp = () => {
   const { setUser, updateUser, createUser } = use(AuthContext);
   const [errorMessage, setErrorMessage] = useState('');
+  const [selectedDistrictId, setSelectedDistrictId] = useState('');
+  const [filteredUpazilas, setFilteredUpazilas] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    if (selectedDistrictId) {
+      const filtered = upazilas.filter(up => up.district_id === selectedDistrictId);
+      setFilteredUpazilas(filtered);
+    } else {
+      setFilteredUpazilas([]);
+    }
+  }, [selectedDistrictId]);
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -19,12 +32,9 @@ const SignUp = () => {
 
     setErrorMessage('');
 
-    // Password validation
     const passwordValidation = /(?=.*[a-z])(?=.*[A-Z]).{6,}/;
     if (!passwordValidation.test(password)) {
-      setErrorMessage(
-        'Password must contain at least one uppercase, one lowercase letter and be at least 6 characters long.'
-      );
+      setErrorMessage('Password must contain at least one uppercase, one lowercase letter and be at least 6 characters long.');
       return;
     }
 
@@ -37,11 +47,21 @@ const SignUp = () => {
       .then((result) => {
         const user = result.user;
 
-        // Update display name and photo
+        const userInfo = {
+          name,
+          email: user.email,
+          role: 'donor',
+          status: 'active',
+          photoURL,
+          bloodGroup,
+          district,
+          upazila,
+          created_at: new Date().toISOString()
+        };
+
         updateUser({ displayName: name, photoURL })
           .then(() => {
             setUser({ ...user, displayName: name, photoURL });
-
             toast.success('Account Created Successfully');
             navigate(location?.state || '/');
           })
@@ -50,19 +70,16 @@ const SignUp = () => {
           });
       })
       .catch((error) => {
-        console.log('Error signing up:', error.code, error.message);
         setErrorMessage(error.message);
       });
   };
 
   return (
     <div className="min-h-screen flex">
-      {/* Left side image */}
       <div className="hidden md:flex w-1/2">
         <img src={loginImg} alt="Login" className="object-cover w-full h-full" />
       </div>
 
-      {/* Right side form */}
       <div className="w-full md:w-1/2 flex items-center justify-center bg-base-100 px-6 py-12">
         <div className="w-full bg-white p-5 shadow-md rounded-lg max-w-lg space-y-5">
           <h2 className="text-3xl font-bold text-center text-primary">Create an Account</h2>
@@ -82,8 +99,6 @@ const SignUp = () => {
               <input type="url" name="photoURL" className="input input-bordered w-full" />
             </div>
 
-
-
             <div className="md:col-span-2">
               <label className="label font-medium">Blood Group</label>
               <select name="bloodGroup" className="select select-bordered w-full" required>
@@ -96,26 +111,30 @@ const SignUp = () => {
 
             <div>
               <label className="label font-medium">District</label>
-              <select name="district" className="select select-bordered w-full" required>
-                <option disabled selected>Select district</option>
-                <option>Dhaka</option>
-                <option>Chattogram</option>
-                <option>Rajshahi</option>
-                <option>Khulna</option>
-                {/* Replace with real districts as needed */}
+              <select
+                name="district"
+                className="select select-bordered w-full"
+                required
+                value={selectedDistrictId}
+                onChange={(e) => setSelectedDistrictId(e.target.value)}
+              >
+                <option disabled value="">Select district</option>
+                {districts.map(d => (
+                  <option key={d.id} value={d.id}>{d.name}</option>
+                ))}
               </select>
             </div>
 
-            <div >
+            <div>
               <label className="label font-medium">Upazila</label>
-              <select name="upazila" className="select select-bordered w-full" required>
+              <select name="upazila" className="select select-bordered w-full" required disabled={!filteredUpazilas.length}>
                 <option disabled selected>Select upazila</option>
-                <option>Savar</option>
-                <option>Mirpur</option>
-                <option>Cantonment</option>
-                <option>Mohammadpur</option>
+                {filteredUpazilas.map(u => (
+                  <option key={u.id}>{u.name}</option>
+                ))}
               </select>
             </div>
+
             <div>
               <label className="label font-medium">Password</label>
               <input type="password" name="password" className="input input-bordered w-full" required />

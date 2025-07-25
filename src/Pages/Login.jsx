@@ -56,7 +56,7 @@ const Login = () => {
           // update user info in the Database
           const userInfo = {
             email: user.email,
-            role: 'user',  //default role for every first user
+            role: 'donor',  //default role for every first user
             created_at: new Date().toISOString()
           }
 

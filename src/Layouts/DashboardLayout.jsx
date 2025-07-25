@@ -49,11 +49,15 @@ const DashboardLayout = () => {
               <LayoutDashboard size={18} />
               Dashboard
             </NavLink>
-            <NavLink to="/dashboard/my-donations" className={linkClasses}>
+            <NavLink to="/dashboard/profile" className={linkClasses}>
+              <UserRound size={18} />
+              My Profile
+            </NavLink>
+            <NavLink to="/dashboard/my-donation-requests" className={linkClasses}>
               <Droplet size={18} />
               My Donation Requests
             </NavLink>
-            <NavLink to="/dashboard/create-donation" className={linkClasses}>
+            <NavLink to="/dashboard/create-donation-request" className={linkClasses}>
               <FilePlus size={18} />
               Create Donation Request
             </NavLink>
@@ -61,18 +65,15 @@ const DashboardLayout = () => {
               <Users size={18} />
               All Users
             </NavLink>
-            <NavLink to="/dashboard/all-requests" className={linkClasses}>
+            <NavLink to="/dashboard/all-blood-donation-request" className={linkClasses}>
               <Droplet size={18} />
               All Blood Requests
             </NavLink>
-            <NavLink to="/dashboard/content" className={linkClasses}>
+            <NavLink to="/dashboard/content-management" className={linkClasses}>
               <FileEdit size={18} />
               Content Management
             </NavLink>
-            <NavLink to="/dashboard/profile" className={linkClasses}>
-              <UserRound size={18} />
-              My Profile
-            </NavLink>
+
           </nav>
 
           <div className="mt-16 pt-6 border-t border-base-300">

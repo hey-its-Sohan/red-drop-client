@@ -12,6 +12,7 @@ import Blogs from "../Pages/Blogs";
 import FundDetails from "../Pages/FundDetails";
 
 import DashboardLayout from "../Layouts/DashboardLayout";
+import DashboardHome from "../DashboardPages/DashboardHome";
 
 
 
@@ -52,7 +53,28 @@ export const router = createBrowserRouter([
     path: '/dashboard',
     Component: DashboardLayout,
     children: [
-
+      {
+        path: '/dashboard',
+        Component: DashboardHome
+      },
+      {
+        path: '/dashboard/profile',
+      },
+      {
+        path: "/dashboard/my-donation-requests",
+      },
+      {
+        path: '/dashboard/create-donation-request',
+      },
+      {
+        path: '/dashboard/all-users',
+      },
+      {
+        path: '/dashboard/all-blood-donation-request',
+      },
+      {
+        path: '/dashboard/content-management',
+      }
     ]
   }
 ]);
