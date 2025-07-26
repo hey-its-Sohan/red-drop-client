@@ -1,7 +1,8 @@
 import React, { use } from 'react';
 import { AuthContext } from '../Contexts/AuthContext';
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import logo from '../assets/logo.png'
+import userProfile from '../../src/assets/userProfile.png'
 
 const Navbar = () => {
   const { user, signOutUser } = use(AuthContext)
@@ -51,14 +52,23 @@ const Navbar = () => {
             </ul>
           </div>
           {
-            user ? <div className='flex items-center navbar-end'>
-              <button onClick={handleSignOut} className='btn btn-primary text-white mr-2'>Logout</button>
-              <div className='avatar'>
-                <div className="w-12 rounded-full">
-                  <img
-                    alt="User Profile IMG"
-                    src={user.photoURL || ''} />
+            user ? <div className='flex items-center gap-3 navbar-end'>
+              {/* <button onClick={handleSignOut} className='btn btn-primary text-white mr-2'>Logout</button> */}
+              <h3 className='text-white text-lg'>{user.displayName}</h3>
+              <div className="dropdown dropdown-end">
+                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                  <div className="w-24 rounded-full">
+                    <img
+                      alt="User Profile IMG"
+                      src={user.photoURL || userProfile} />
+                  </div>
                 </div>
+                <ul
+                  tabIndex={0}
+                  className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-3 shadow">
+                  <NavLink to={'/dashboard'}><li className='hover:bg-red-50 px-2'>Dashboard</li></NavLink>
+                  <li onClick={handleSignOut} className='cursor-pointer hover:bg-red-50 px-2'>Logout</li>
+                </ul>
               </div>
             </div> : <div className="navbar-end">
               <NavLink to={'/login'}><button className='btn btn-primary text-white mr-2'>Login</button></NavLink>

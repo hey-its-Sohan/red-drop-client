@@ -5,6 +5,7 @@ import { AuthContext } from '../Contexts/AuthContext';
 import { useLocation, useNavigate } from 'react-router';
 import districts from '../District_Upazila_Data/district.json';
 import upazilas from '../District_Upazila_Data/upazila.json';
+import useAxiosSecure from '../Hooks/useAxiosSecure';
 
 const SignUp = () => {
   const { setUser, updateUser, createUser } = use(AuthContext);
@@ -13,6 +14,7 @@ const SignUp = () => {
   const [filteredUpazilas, setFilteredUpazilas] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
+  const axiosSecure = useAxiosSecure()
 
   useEffect(() => {
     if (selectedDistrictId) {
@@ -59,6 +61,13 @@ const SignUp = () => {
           created_at: new Date().toISOString()
         };
 
+        axiosSecure.post('/users', userInfo)
+          .then(res => {
+            if (res.data.insertedId || res.data.acknowledged) {
+              console.log('user send successful');
+            }
+          })
+
         updateUser({ displayName: name, photoURL })
           .then(() => {
             setUser({ ...user, displayName: name, photoURL });
@@ -102,7 +111,7 @@ const SignUp = () => {
             <div className="md:col-span-2">
               <label className="label font-medium">Blood Group</label>
               <select name="bloodGroup" className="select select-bordered w-full" required>
-                <option disabled selected>Select group</option>
+                <option disabled >Select group</option>
                 {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map(group => (
                   <option key={group}>{group}</option>
                 ))}
@@ -120,15 +129,15 @@ const SignUp = () => {
               >
                 <option disabled value="">Select district</option>
                 {districts.map(d => (
-                  <option key={d.id} value={d.id}>{d.name}</option>
+                  <option key={d.id} value={d.name}>{d.name}</option>
                 ))}
               </select>
             </div>
 
             <div>
               <label className="label font-medium">Upazila</label>
-              <select name="upazila" className="select select-bordered w-full" required disabled={!filteredUpazilas.length}>
-                <option disabled selected>Select upazila</option>
+              <select defaultValue='Select upazila' name="upazila" className="select select-bordered w-full" required disabled={!filteredUpazilas.length}>
+                <option disabled >Select upazila</option>
                 {filteredUpazilas.map(u => (
                   <option key={u.id}>{u.name}</option>
                 ))}

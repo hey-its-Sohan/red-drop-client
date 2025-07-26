@@ -42,19 +42,19 @@ const AuthProvider = ({ children }) => {
       console.log('Current user inside:', currentUser);
       setUser(currentUser);
 
-      // if (currentUser) {
-      //   try {
-      //     const token = await currentUser.getIdToken();
+      if (currentUser) {
+        try {
+          const token = await currentUser.getIdToken();
 
-      //     await axios.get("https://sharebite-server-five.vercel.app", {
-      //       headers: {
-      //         Authorization: `Bearer ${token}`
-      //       }
-      //     });
-      //   } catch (error) {
-      //     console.error("Error fetching user-protected data:", error);
-      //   }
-      // }
+          await axios.get("http://localhost:3000", {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+        } catch (error) {
+          console.error("Error fetching user-protected data:", error);
+        }
+      }
 
       setLoading(false);
     });
