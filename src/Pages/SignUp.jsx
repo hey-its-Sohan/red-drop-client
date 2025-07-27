@@ -10,20 +10,24 @@ import useAxiosSecure from '../Hooks/useAxiosSecure';
 const SignUp = () => {
   const { setUser, updateUser, createUser } = use(AuthContext);
   const [errorMessage, setErrorMessage] = useState('');
-  const [selectedDistrictId, setSelectedDistrictId] = useState('');
+  const [selectedDistrictName, setSelectedDistrictName] = useState('');
   const [filteredUpazilas, setFilteredUpazilas] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
   const axiosSecure = useAxiosSecure()
 
   useEffect(() => {
-    if (selectedDistrictId) {
-      const filtered = upazilas.filter(up => up.district_id === selectedDistrictId);
-      setFilteredUpazilas(filtered);
+    if (selectedDistrictName) {
+      const selectedDistrict = districts.find(d => d.name === selectedDistrictName);
+      if (selectedDistrict) {
+        const filtered = upazilas.filter(up => up.district_id === selectedDistrict.id);
+        setFilteredUpazilas(filtered);
+      }
     } else {
       setFilteredUpazilas([]);
     }
-  }, [selectedDistrictId]);
+  }, [selectedDistrictName]);
+
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -124,8 +128,8 @@ const SignUp = () => {
                 name="district"
                 className="select select-bordered w-full"
                 required
-                value={selectedDistrictId}
-                onChange={(e) => setSelectedDistrictId(e.target.value)}
+                value={selectedDistrictName}
+                onChange={(e) => setSelectedDistrictName(e.target.value)}
               >
                 <option disabled value="">Select district</option>
                 {districts.map(d => (
@@ -137,7 +141,7 @@ const SignUp = () => {
             <div>
               <label className="label font-medium">Upazila</label>
               <select defaultValue='Select upazila' name="upazila" className="select select-bordered w-full" required disabled={!filteredUpazilas.length}>
-                <option disabled >Select upazila</option>
+                <option disabled value=''>Select upazila</option>
                 {filteredUpazilas.map(u => (
                   <option key={u.id}>{u.name}</option>
                 ))}
@@ -170,8 +174,8 @@ const SignUp = () => {
             </div>
           </form>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 };
 

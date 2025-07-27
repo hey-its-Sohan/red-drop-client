@@ -22,6 +22,8 @@ const DashboardHome = () => {
     console.log('my user', user);
     console.log(role);
 
+
+
     if (user?.email && role === 'donor') {
       axiosSecure.get(`/my-donation-requests/${user?.email}`)
         .then(res => {
@@ -31,13 +33,14 @@ const DashboardHome = () => {
         });
     }
     if (role === 'admin' || role === 'volunteer') {
-      axios.get('/api/dashboard-stats').then(res => setStats(res.data));
+      axiosSecure.get('/dashboard-stats').then(res => setStats(res.data));
     }
   }, [user?.email, role, loading]);
 
   if (loading || isLoading) return <Loader />
 
   const handleStatusChange = (id, status) => {
+    if (loading || isLoading) return <Loader />
     axios.patch(`/api/donation-requests/${id}`, { status })
       .then(() => {
         setDonationRequests(prev => prev.map(req => req._id === id ? { ...req, status } : req));
