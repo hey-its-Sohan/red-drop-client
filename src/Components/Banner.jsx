@@ -7,8 +7,8 @@ const Banner = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-gradient-to-r from-primary to-secondary text-white py-20 px-6">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+    <div className="bg-gradient-to-r from-primary to-secondary text-white py-20 px-6 lg:px-0">
+      <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
         <motion.div
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
@@ -38,7 +38,7 @@ const Banner = () => {
           <img
             src={bannerIMG}
             alt="Donate blood"
-            className="w-full max-w-md mx-auto"
+            className="w-full  mx-auto"
           />
         </motion.div>
       </div>
