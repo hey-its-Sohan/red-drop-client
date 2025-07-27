@@ -157,7 +157,7 @@ const CreateDonationRequest = () => {
           <textarea name="message" value={formData.message} onChange={handleChange} className="textarea textarea-bordered w-full" rows={4} required />
         </div>
 
-        <button type="submit" className="btn btn-primary w-full mt-4" disabled={userStatus === isBlocked}>
+        <button type="submit" className="btn text-white btn-primary w-full mt-4" disabled={userStatus === isBlocked}>
           Request Blood
         </button>
       </form>

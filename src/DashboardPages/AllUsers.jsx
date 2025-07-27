@@ -113,7 +113,7 @@ const AllUsers = () => {
                       )}
                       {(user.role !== 'volunteer') ? (
                         <li><button className=' hover:bg-red-100' onClick={() => updateRoleMutation.mutate({ id: user._id, role: 'volunteer' })}>Make Volunteer</button></li>
-                      ) : <li><button className=' hover:bg-red-100' onClick={() => updateRoleMutation.mutate({ id: user._id, role: 'volunteer' })}>Make Donor</button></li>}
+                      ) : <li><button className=' hover:bg-red-100' onClick={() => updateRoleMutation.mutate({ id: user._id, role: 'donor' })}>Make Donor</button></li>}
                       {(user.role !== 'admin') && (
                         <li><button className=' hover:bg-red-100' onClick={() => updateRoleMutation.mutate({ id: user._id, role: 'admin' })}>Make Admin</button></li>
                       )}

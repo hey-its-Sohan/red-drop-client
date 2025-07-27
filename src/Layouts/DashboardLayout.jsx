@@ -12,12 +12,10 @@ import {
   FilePlus,
 } from 'lucide-react';
 import Navbar from '../Components/Navbar';
-import Footer from '../Components/Footer';
 
 
 const DashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
   const linkClasses = ({ isActive }) =>
@@ -25,74 +23,82 @@ const DashboardLayout = () => {
     }`;
 
   return (
-    <div >
+    <div className="flex flex-col min-h-screen">
       <Navbar />
 
-      <div className="flex flex-col min-h-screen">
-        <div className="flex flex-1">
-          {/* Mobile Sidebar Toggle */}
+      <div className="flex flex-1 relative ">
+        {/* Toggle button for sidebar (Mobile) */}
+        {!sidebarOpen && (
           <button
-            className="md:hidden p-4 bg-red-50 text-secondary"
+            className="md:hidden p-4 absolute top-0 left-0 z-50 text-primary"
             onClick={toggleSidebar}
             aria-label="Toggle Sidebar"
           >
-            {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+            <Menu size={24} />
           </button>
+        )}
 
-          {/* Sidebar */}
-          <aside
-            className={`fixed top-0 left-0 min-h-screen z-40 bg-secondary text-base-100 w-64 p-6 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-              } md:relative md:translate-x-0 md:flex md:flex-col transition-transform duration-300 ease-in-out`}
-          >
-            <h2 className="text-2xl font-bold mb-8">RedDrop</h2>
-            <nav className="space-y-3">
-              <NavLink to="/dashboard" className={linkClasses}>
-                <LayoutDashboard size={18} />
-                Dashboard
-              </NavLink>
-              <NavLink to="/dashboard/profile" className={linkClasses}>
-                <UserRound size={18} />
-                My Profile
-              </NavLink>
-              <NavLink to="/dashboard/my-donation-requests" className={linkClasses}>
-                <Droplet size={18} />
-                My Donation Requests
-              </NavLink>
-              <NavLink to="/dashboard/create-donation-request" className={linkClasses}>
-                <FilePlus size={18} />
-                Create Donation Request
-              </NavLink>
-              <NavLink to="/dashboard/all-users" className={linkClasses}>
-                <Users size={18} />
-                All Users
-              </NavLink>
-              <NavLink to="/dashboard/all-blood-donation-request" className={linkClasses}>
-                <Droplet size={18} />
-                All Blood Requests
-              </NavLink>
-              <NavLink to="/dashboard/content-management" className={linkClasses}>
-                <FileEdit size={18} />
-                Content Management
-              </NavLink>
+        {/* Sidebar */}
+        <aside
+          className={`fixed left-0 z-40 bg-secondary text-base-100 w-64 min-h-screen p-6 transform transition-transform duration-300 ease-in-out
+          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} 
+          md:relative md:translate-x-0 md:flex md:flex-col`}
+        >
+          {/* Close button inside sidebar (mobile only) */}
+          <div className="flex justify-between items-center mb-6 md:hidden">
+            <h2 className="text-2xl font-bold">RedDrop</h2>
+            <button onClick={toggleSidebar} aria-label="Close Sidebar">
+              <X size={24} className="text-base-100" />
+            </button>
+          </div>
 
-            </nav>
+          {/* Sidebar title (desktop) */}
+          <h2 className="text-2xl font-bold mb-8 hidden md:block">RedDrop</h2>
 
-            <div className="mt-16 pt-6 border-t border-base-300">
-              <button className="flex items-center gap-3 text-base-100 hover:text-primary transition">
-                <LogOut size={18} />
-                Logout
-              </button>
-            </div>
-          </aside>
+          <nav className="space-y-3">
+            <NavLink to="/dashboard" className={linkClasses}>
+              <LayoutDashboard size={18} />
+              Dashboard
+            </NavLink>
+            <NavLink to="/dashboard/profile" className={linkClasses}>
+              <UserRound size={18} />
+              My Profile
+            </NavLink>
+            <NavLink to="/dashboard/my-donation-requests" className={linkClasses}>
+              <Droplet size={18} />
+              My Donation Requests
+            </NavLink>
+            <NavLink to="/dashboard/create-donation-request" className={linkClasses}>
+              <FilePlus size={18} />
+              Create Donation Request
+            </NavLink>
+            <NavLink to="/dashboard/all-users" className={linkClasses}>
+              <Users size={18} />
+              All Users
+            </NavLink>
+            <NavLink to="/dashboard/all-blood-donation-request" className={linkClasses}>
+              <Droplet size={18} />
+              All Blood Requests
+            </NavLink>
+            <NavLink to="/dashboard/content-management" className={linkClasses}>
+              <FileEdit size={18} />
+              Content Management
+            </NavLink>
+          </nav>
 
-          {/* Main Content */}
-          <main className=" max-w-screen-xl mx-auto py-7 bg-base-100 px-6 lg:px-0 ">
-            <Outlet />
-          </main>
-        </div>
+          <div className="mt-16 pt-6 border-t border-base-300">
+            <button className="flex items-center gap-3 text-base-100 hover:text-primary transition">
+              <LogOut size={18} />
+              Logout
+            </button>
+          </div>
+        </aside>
+
+        {/* Main Content */}
+        <main className="flex-1 mt-6 px-4 md:px-6 py-6 overflow-x-hidden max-w-screen-xl mx-auto bg-base-100">
+          <Outlet />
+        </main>
       </div>
-
-
     </div>
   );
 };
