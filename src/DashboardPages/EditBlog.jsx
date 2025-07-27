@@ -1,18 +1,39 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router';
 import JoditEditor from 'jodit-react';
 import { toast } from 'react-toastify';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
-import { useNavigate } from 'react-router';
 
-const AddBlog = () => {
+const EditBlog = () => {
+  const { id } = useParams(); // get blog id from URL
   const editor = useRef(null);
-  const [content, setContent] = useState('');
+  const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
+
   const [title, setTitle] = useState('');
   const [thumbnailUrl, setThumbnailUrl] = useState('');
+  const [content, setContent] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const axiosSecure = useAxiosSecure();
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const res = await axiosSecure.get(`/blogs-details/${id}`);
+        const blog = res.data;
+
+        setTitle(blog.title);
+        setThumbnailUrl(blog.thumbnail);
+        setContent(blog.content);
+      } catch (err) {
+        console.error(err);
+        toast.error('Failed to fetch blog data.');
+      }
+    };
+
+    fetchBlog();
+  }, [id, axiosSecure]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,16 +49,17 @@ const AddBlog = () => {
         title,
         thumbnail: thumbnailUrl,
         content,
-        status: 'Draft', // default
-        createdAt: new Date(),
+        status: 'Draft', // keep as draft
+        updatedAt: new Date(),
       };
 
-      await axiosSecure.post('/blogs', blogData);
-      toast.success('Blog created successfully!');
+      await axiosSecure.put(`/edit-blogs/${id}`, blogData);
+
+      toast.success('Blog updated successfully!');
       navigate('/dashboard/content-management');
     } catch (err) {
       console.error(err);
-      toast.error('Failed to create blog.');
+      toast.error('Failed to update blog.');
     } finally {
       setLoading(false);
     }
@@ -45,7 +67,7 @@ const AddBlog = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-4">
-      <h2 className="text-2xl font-semibold mb-5 text-primary">Add New Blog</h2>
+      <h2 className="text-2xl font-semibold mb-5 text-primary">Edit Blog</h2>
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
@@ -86,11 +108,11 @@ const AddBlog = () => {
           className="btn btn-primary text-white"
           disabled={loading}
         >
-          {loading ? 'Creating...' : 'Create Blog'}
+          {loading ? 'Updating...' : 'Update Blog'}
         </button>
       </form>
     </div>
   );
 };
 
-export default AddBlog;
+export default EditBlog;

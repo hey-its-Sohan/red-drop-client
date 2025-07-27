@@ -59,6 +59,7 @@ const ContentManagement = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
+          console.log('Deleting blog with ID:', id);
           await axiosSecure.delete(`/blogs/${id}`);
           toast.success('Blog deleted successfully');
           refetch();
@@ -106,21 +107,21 @@ const ContentManagement = () => {
         ) : (
           filteredBlogs.map((blog) => (
             <div key={blog._id} className="card bg-base-100 shadow-lg border border-gray-200">
-              {blog.image && (
+              {blog.thumbnail && (
                 <figure>
-                  <img src={blog.image} alt="Blog" className="h-48 w-full object-cover rounded-t-lg" />
+                  <img src={blog.thumbnail} alt="Blog" className="h-48 w-full object-cover rounded-t-lg" />
                 </figure>
               )}
               <div className="card-body">
                 <h2 className="card-title">{blog.title}</h2>
-                <p className="text-sm text-gray-600">{blog.excerpt}</p>
+                <p className="text-sm mb-2 text-gray-600">Posted At: {blog.createdAt}</p>
 
                 {blog.status === 'published' ? <div className="badge badge-success">{blog.status}</div> :
                   <div className="badge badge-neutral">{blog.status}</div>}
 
                 {isAdmin && (
                   <div className="mt-4 flex flex-wrap gap-2">
-                    {blog.status === 'draft' ? (
+                    {blog.status === 'Draft' ? (
                       <button className="btn btn-sm btn-success" onClick={() => handlePublish(blog._id)}>
                         Publish
                       </button>

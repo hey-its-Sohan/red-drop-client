@@ -21,6 +21,7 @@ import AllUsers from "../DashboardPages/AllUsers";
 import AllBloodRequest from "../DashboardPages/AllBloodRequest";
 import ContentManagement from "../DashboardPages/ContentManagement";
 import AddBlog from "../DashboardPages/AddBlog";
+import EditBlog from "../DashboardPages/EditBlog";
 
 
 
@@ -96,6 +97,10 @@ export const router = createBrowserRouter([
       {
         path: '/dashboard/add-blog',
         Component: AddBlog
+      },
+      {
+        path: '/dashboard/edit-blog/:id',
+        Component: EditBlog
       }
     ]
   }
