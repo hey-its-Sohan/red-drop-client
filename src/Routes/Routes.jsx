@@ -19,6 +19,8 @@ import MyDonationRequests from "../DashboardPages/MyDonationRequests";
 import EditDonation from "../DashboardPages/EditDonation";
 import AllUsers from "../DashboardPages/AllUsers";
 import AllBloodRequest from "../DashboardPages/AllBloodRequest";
+import ContentManagement from "../DashboardPages/ContentManagement";
+import AddBlog from "../DashboardPages/AddBlog";
 
 
 
@@ -89,6 +91,11 @@ export const router = createBrowserRouter([
       },
       {
         path: '/dashboard/content-management',
+        Component: ContentManagement
+      },
+      {
+        path: '/dashboard/add-blog',
+        Component: AddBlog
       }
     ]
   }
