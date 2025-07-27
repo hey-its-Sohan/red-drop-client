@@ -19,7 +19,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     if (user?.email) {
-      axiosSecure.get(`/users/${user.email}`).then((res) => {
+      axiosSecure.get(`/user-data/${user.email}`).then((res) => {
         setProfileData(res.data);
       });
     }
@@ -34,12 +34,19 @@ const UserProfile = () => {
 
   const handleSave = async () => {
     try {
-      const { email, ...updatedData } = profileData;
-      await axiosSecure.patch(`/users/${email}`, updatedData);
-      toast.success('Profile updated successfully!');
-      setIsEditing(false);
+      const { _id, ...updatedData } = profileData;
+      await axiosSecure.patch(`/update-user-data/${_id}`, updatedData)
+        .then(res => {
+          if (res.data.modifiedCount > 0) {
+            toast.success('Profile updated successfully!');
+            setIsEditing(false);
+          } else {
+            toast.info('No changes were made.');
+          }
+        })
+
     } catch (error) {
-      toast.error('Failed to update profile.');
+      toast.error('Failed to update profile.', error);
     }
   };
 
@@ -71,7 +78,7 @@ const UserProfile = () => {
                 <label className="label font-medium">Photo URL</label>
                 <input
                   type="text"
-                  name="avatar"
+                  name="photoURL"
                   className="input input-bordered w-full"
                   value={profileData.photoURL}
                   onChange={handleChange}
@@ -127,14 +134,23 @@ const UserProfile = () => {
             </div>
             <div>
               <label className="label font-medium">Blood Group</label>
-              <input
+              <select name="bloodGroup"
+                value={profileData.bloodGroup}
+                onChange={handleChange}
+                className="select select-bordered w-full" required>
+                <option disabled={!isEditing} >Select group</option>
+                {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map(group => (
+                  <option key={group}>{group}</option>
+                ))}
+              </select>
+              {/* <input
                 type="text"
                 name="bloodGroup"
                 className="input input-bordered w-full"
                 value={profileData.bloodGroup}
                 onChange={handleChange}
                 disabled={!isEditing}
-              />
+              /> */}
             </div>
           </div>
         </div>

@@ -14,6 +14,9 @@ import FundDetails from "../Pages/FundDetails";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import DashboardHome from "../DashboardPages/DashboardHome";
 import UserProfile from "../DashboardPages/UserProfile";
+import CreateDonationRequest from "../DashboardPages/CreateDonationRequest";
+import MyDonationRequests from "../DashboardPages/MyDonationRequests";
+import EditDonation from "../DashboardPages/EditDonation";
 
 
 
@@ -64,9 +67,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard/my-donation-requests",
+        Component: MyDonationRequests
+      },
+      {
+        path: '/dashboard/edit-donation/:id',
+        Component: EditDonation
       },
       {
         path: '/dashboard/create-donation-request',
+        Component: CreateDonationRequest
       },
       {
         path: '/dashboard/all-users',

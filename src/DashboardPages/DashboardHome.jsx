@@ -4,24 +4,38 @@ import { useNavigate } from 'react-router';
 import axios from 'axios';
 import { Eye, Edit, Trash2, Check, X, Users, Droplet, HandCoins } from 'lucide-react';
 import { AuthContext } from '../Contexts/AuthContext';
+import Loader from '../Components/Loader';
+import useAxiosSecure from '../Hooks/useAxiosSecure';
+import useUserRole from '../Hooks/useUserRole';
 
 const DashboardHome = () => {
-  const { user } = use(AuthContext);
+  const { user, loading } = use(AuthContext);
   const [donationRequests, setDonationRequests] = useState([]);
   const [stats, setStats] = useState({ users: 0, funds: 0, requests: 0 });
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure()
+  const { role, isLoading } = useUserRole();
 
   useEffect(() => {
-    if (user?.email && user?.role === 'donor') {
-      axios.get(`/api/my-donation-requests?email=${user.email}`)
+
+    if (!user || loading) return;
+    console.log('my user', user);
+    console.log(role);
+
+    if (user?.email && role === 'donor') {
+      axiosSecure.get(`/my-donation-requests/${user?.email}`)
         .then(res => {
+          console.log('this is data', res.data);
           setDonationRequests(res.data.slice(0, 3));
+
         });
     }
-    if (user?.role === 'admin' || user?.role === 'volunteer') {
+    if (role === 'admin' || role === 'volunteer') {
       axios.get('/api/dashboard-stats').then(res => setStats(res.data));
     }
-  }, [user]);
+  }, [user?.email, role, loading]);
+
+  if (loading || isLoading) return <Loader />
 
   const handleStatusChange = (id, status) => {
     axios.patch(`/api/donation-requests/${id}`, { status })
@@ -39,10 +53,15 @@ const DashboardHome = () => {
 
   return (
     <div className="p-6 space-y-6">
+      {role === 'donor' && (
+        <div className="mt-4 text-sm">
+          <p className="text-gray-600">Fetched: {donationRequests.length} requests</p>
+        </div>
+      )}
       <h1 className="text-3xl font-bold text-primary">Welcome, {user?.displayName || 'User'}!</h1>
 
       {/* Admin & Volunteer Stats */}
-      {(user?.role === 'admin' || user?.role === 'volunteer') && (
+      {(role === 'admin' || role === 'volunteer') && (
         <div className="grid md:grid-cols-3 gap-4">
           <div className="bg-primary text-white rounded-xl p-6 shadow-lg flex items-center gap-4">
             <Users size={40} />
@@ -69,7 +88,7 @@ const DashboardHome = () => {
       )}
 
       {/* Donor's Recent Requests */}
-      {user?.role === 'donor' && donationRequests.length > 0 && (
+      {role === 'donor' && donationRequests.length > 0 && (
         <div className="overflow-x-auto mt-6">
           <h2 className="text-2xl font-semibold mb-4 text-primary">Your Recent Donation Requests</h2>
           <table className="table w-full">

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { auth } from '../Firebase/firebase.init'
-import axios from 'axios';
+
 
 
 const googleProvider = new GoogleAuthProvider();
@@ -41,20 +41,6 @@ const AuthProvider = ({ children }) => {
     const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
       console.log('Current user inside:', currentUser);
       setUser(currentUser);
-
-      if (currentUser) {
-        try {
-          const token = await currentUser.getIdToken();
-
-          await axios.get("http://localhost:3000", {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          });
-        } catch (error) {
-          console.error("Error fetching user-protected data:", error);
-        }
-      }
 
       setLoading(false);
     });

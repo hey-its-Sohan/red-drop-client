@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import useAxiosSecure from '../../Hooks/useAxiosSecure';
-import useAuth from '../../Hooks/useAuth';
+import useAxiosSecure from '../Hooks/useAxiosSecure';
 import { Link } from 'react-router';
+import { AuthContext } from '../Contexts/AuthContext';
+import Loader from '../Components/Loader';
 
 
 const MyDonationRequests = () => {
-  const { user } = useAuth();
+  const { user } = use(AuthContext);
   const [statusFilter, setStatusFilter] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -16,11 +17,14 @@ const MyDonationRequests = () => {
   const { data: allRequests = [], isLoading } = useQuery({
     queryKey: ['my-donation-requests', user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/donation-requests?email=${user?.email}`);
+      const res = await axiosSecure.get(`/my-donation-requests/${user?.email}`);
+      console.log('donation request data', res.data);
       return res.data;
     },
     enabled: !!user?.email,
   });
+
+  if (isLoading) return <Loader />
 
   const filteredRequests =
     statusFilter === 'all'
@@ -39,12 +43,12 @@ const MyDonationRequests = () => {
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-semibold mb-4 text-primary">My Donation Requests</h2>
+    <div className=" max-w-screen-xl mx-auto px-3 md:px-5 lg:px-0">
+      <h2 className="text-xl md:text-2xl font-semibold mb-4 text-primary">My Donation Requests</h2>
 
-      <div className="flex justify-between items-center mb-4">
-        <div>
-          <label className="label font-medium">Filter by Status: </label>
+      <div className="mb-4">
+        <div className="flex flex-col md:flex-row gap-3 md:gap-5 items-start md:items-center">
+          <label className="label font-medium">Filter by Status:</label>
           <select
             className="select select-bordered w-full max-w-xs"
             value={statusFilter}
@@ -60,20 +64,20 @@ const MyDonationRequests = () => {
       </div>
 
       {paginatedRequests.length === 0 ? (
-        <p className="text-gray-500">No donation requests found.</p>
+        <p className="text-gray-500 text-center py-10">No donation requests found.</p>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="table table-zebra w-full">
+        <div className="w-full overflow-auto border border-primary rounded-box shadow-md mb-10">
+          <table className="table min-w-full  text-sm">
             <thead>
               <tr>
                 <th>#</th>
-                <th>Recipient Name</th>
+                <th>Recipient</th>
                 <th>Location</th>
-                <th>Donation Date</th>
+                <th>Date</th>
                 <th>Time</th>
-                <th>Blood Group</th>
+                <th>Blood</th>
                 <th>Status</th>
-                <th>Donor Info</th>
+                <th>Donor</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -83,32 +87,36 @@ const MyDonationRequests = () => {
                   <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
                   <td>{req.recipientName}</td>
                   <td>
-                    {req.recipientDistrict}, {req.recipientUpazila}
+                    {req.district}, {req.upazila}
                   </td>
                   <td>{req.donationDate}</td>
                   <td>{req.donationTime}</td>
                   <td>{req.bloodGroup}</td>
                   <td>
-                    <span className={`badge badge-${req.status === 'pending'
+                    <span
+                      className={`badge badge-sm badge-${req.status === 'pending'
                         ? 'neutral'
                         : req.status === 'inprogress'
                           ? 'primary'
                           : req.status === 'done'
                             ? 'success'
                             : 'error'
-                      }`}>{req.status}</span>
+                        }`}
+                    >
+                      {req.status}
+                    </span>
                   </td>
-                  <td>
+                  <td >
                     {req.status === 'inprogress' ? (
                       <div>
                         <p>{req.donorName}</p>
-                        <p className="text-sm text-gray-500">{req.donorEmail}</p>
+                        <p className="text-xs text-gray-500">{req.donorEmail}</p>
                       </div>
                     ) : (
                       '-'
                     )}
                   </td>
-                  <td className="space-x-1">
+                  <td className=" space-x-1">
                     {req.status === 'inprogress' && (
                       <>
                         <button className="btn btn-xs btn-success">Done</button>
@@ -116,7 +124,10 @@ const MyDonationRequests = () => {
                       </>
                     )}
                     {(req.status !== 'done' && req.status !== 'canceled') && (
-                      <Link to={`/dashboard/edit-donation/${req._id}`} className="btn btn-xs btn-warning">
+                      <Link
+                        to={`/dashboard/edit-donation/${req._id}`}
+                        className="btn btn-xs btn-warning"
+                      >
                         Edit
                       </Link>
                     )}
@@ -139,7 +150,7 @@ const MyDonationRequests = () => {
             <button
               key={i}
               onClick={() => setCurrentPage(i + 1)}
-              className={`join-item btn ${currentPage === i + 1 ? 'btn-primary text-white' : ''}`}
+              className={`join-item btn btn-sm ${currentPage === i + 1 ? 'btn-primary text-white' : ''}`}
             >
               {i + 1}
             </button>
