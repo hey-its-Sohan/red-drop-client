@@ -17,14 +17,18 @@ const Navbar = () => {
   }
 
   const navItems = <>
-    <li className='text-white text-lg'><NavLink to={"/blood-donation-request"}>Blood Donation Request</NavLink></li>
-    <li className='text-white text-lg'><NavLink to={"/search-donor"}>Search Donor</NavLink></li>
-    <li className='text-white text-lg'><NavLink to={"/blogs"}>Blogs</NavLink></li>
-    <li className='text-white text-lg'><NavLink to={"/fund-details"}>Fund Details</NavLink></li>
+    <li className='text-white text-lg'><NavLink to={"/blood-donation-request"} className={({ isActive }) => isActive ? " border-b-2 border-primary text-lg pb-1 font-bold" : "font-normal"
+    }>Blood Donation Request</NavLink></li>
+    <li className='text-white text-lg'><NavLink to={"/search-donor"} className={({ isActive }) => isActive ? " border-b-2 border-primary text-lg pb-1 font-bold" : "font-normal"
+    }>Search Donor</NavLink></li>
+    <li className='text-white text-lg'><NavLink to={"/blogs"} className={({ isActive }) => isActive ? " border-b-2 border-primary text-lg pb-1 font-bold" : "font-normal"
+    }>Blogs</NavLink ></li>
+    <li className='text-white text-lg'><NavLink to={"/fund-details"} className={({ isActive }) => isActive ? " border-b-2 border-primary text-lg pb-1 font-bold" : "font-normal"
+    }>Fund Details</NavLink></li>
   </>
 
   return (
-    <div className='bg-secondary'>
+    <div className='bg-secondary z-50 relative'>
       <div className='max-w-screen-xl mx-auto'>
         <div className="navbar">
           <div className="navbar-start">
@@ -35,10 +39,14 @@ const Navbar = () => {
               <ul
                 tabIndex={0}
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                <li className='text-black text-lg'><NavLink to={"/blood-donation-request"}>Blood Donation Request</NavLink></li>
-                <li className='text-black text-lg'><NavLink to={"/search-donor"}>Search Donor</NavLink></li>
-                <li className='text-black text-lg'><NavLink to={"/blogs"}>Blogs</NavLink></li>
-                <li className='text-black text-lg'><NavLink to={"/fund-details"}>Fund Details</NavLink></li>
+                <li className='text-black text-lg'><NavLink to={"/blood-donation-request"} className={({ isActive }) => isActive ? " border-b-2 border-primary  pb-1 font-bold" : "font-normal"
+                }>Blood Donation Request</NavLink></li>
+                <li className='text-black text-lg'><NavLink to={"/search-donor"} className={({ isActive }) => isActive ? " border-b-2 border-primary  pb-1 font-bold" : "font-normal"
+                }>Search Donor</NavLink></li>
+                <li className='text-black text-lg'><NavLink to={"/blogs"} className={({ isActive }) => isActive ? " border-b-2 border-primary  pb-1 font-bold" : "font-normal"
+                }>Blogs</NavLink></li>
+                <li className='text-black text-lg'><NavLink to={"/fund-details"} className={({ isActive }) => isActive ? " border-b-2 border-primary  pb-1 font-bold" : "font-normal"
+                }>Fund Details</NavLink></li>
               </ul>
             </div>
             <div>
@@ -70,8 +78,8 @@ const Navbar = () => {
                 <ul
                   tabIndex={0}
                   className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-3 shadow">
-                  <NavLink to={'/dashboard'}><li className='hover:bg-red-50 px-2'>Dashboard</li></NavLink>
-                  <li onClick={handleSignOut} className='cursor-pointer hover:bg-red-50 px-2'>Logout</li>
+                  <NavLink to={'/dashboard'}><li className='hover:bg-red-100 px-2'>Dashboard</li></NavLink>
+                  <li onClick={handleSignOut} className='cursor-pointer hover:bg-red-100 px-2'>Logout</li>
                 </ul>
               </div>
             </div> : <div className="navbar-end">

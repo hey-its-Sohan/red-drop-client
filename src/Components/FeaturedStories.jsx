@@ -3,13 +3,13 @@ import React from 'react';
 const stories = [
   {
     name: 'Fatima Ahmed',
-    image: 'https://i.ibb.co/7VKXwFx/survivor1.jpg',
+    image: 'https://i.ibb.co/xKH68HWk/jake-nackos-IF9-TK5-Uy-KI-unsplash.jpg',
     story:
       'After a severe accident, I needed 5 bags of blood urgently. Thanks to a donor from this platform, I got the help I needed to survive.',
   },
   {
     name: 'Rashed Khan',
-    image: 'https://i.ibb.co/6vWzjPg/survivor2.jpg',
+    image: 'https://i.ibb.co/JRQmX3Rn/christian-buehner-84-E44-Ed-D18o-unsplash.jpg',
     story:
       'My son has thalassemia and needs blood regularly. This platform gave us hope and reliable donors every month.',
   },
@@ -29,7 +29,7 @@ const FeaturedStories = () => {
                 <img
                   src={s.image}
                   alt={s.name}
-                  className="w-16 h-16 rounded-full object-cover border"
+                  className="w-16 h-16 rounded-full object-cover border border-primary"
                 />
                 <div>
                   <p className="italic text-gray-700 mb-2">“{s.story}”</p>

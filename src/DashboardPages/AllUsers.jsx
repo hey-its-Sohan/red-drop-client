@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
 import { MoreVertical } from 'lucide-react';
 import Loader from '../Components/Loader';
 import { toast } from 'react-toastify';
+import userProfile from '../assets/userProfile.PNG'
+import { AuthContext } from '../Contexts/AuthContext';
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
+  const { user } = use(AuthContext)
 
   const [statusFilter, setStatusFilter] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
@@ -82,42 +85,58 @@ const AllUsers = () => {
             </tr>
           </thead>
           <tbody>
-            {paginatedUsers.map((user, index) => (
-              <tr key={user._id}>
+            {paginatedUsers.map((u, index) => (
+              <tr key={u._id}>
                 <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
                 <td>
                   <div className="avatar">
                     <div className="w-10 rounded-full">
-                      <img src={user.photoURL || '/placeholder.jpg'} alt="user avatar" />
+                      <img src={u.photoURL || userProfile} alt="user avatar" />
                     </div>
                   </div>
                 </td>
-                <td>{user.email}</td>
-                <td>{user.name}</td>
-                <td>{user.role}</td>
+                <td>{u.email}</td>
+                <td>{u.name}</td>
+                <td>{u.role}</td>
                 <td>
-                  <span className={`badge badge-${user.status === 'active' ? 'success' : 'error'}`}>
-                    {user.status}
+                  <span className={`badge badge-${u.status === 'active' ? 'success' : 'error'}`}>
+                    {u.status}
                   </span>
                 </td>
                 <td>
                   <div className="dropdown dropdown-left">
-                    <label tabIndex={0} className="btn btn-sm btn-ghost">
-                      <MoreVertical size={18} />
-                    </label>
-                    <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-44">
-                      {user.status === 'active' ? (
-                        <li><button className=' hover:bg-red-100' onClick={() => updateStatusMutation.mutate({ id: user._id, status: 'blocked' })}>Block</button></li>
-                      ) : (
-                        <li><button className=' hover:bg-red-100' onClick={() => updateStatusMutation.mutate({ id: user._id, status: 'active' })}>Unblock</button></li>
-                      )}
-                      {(user.role !== 'volunteer') ? (
-                        <li><button className=' hover:bg-red-100' onClick={() => updateRoleMutation.mutate({ id: user._id, role: 'volunteer' })}>Make Volunteer</button></li>
-                      ) : <li><button className=' hover:bg-red-100' onClick={() => updateRoleMutation.mutate({ id: user._id, role: 'donor' })}>Make Donor</button></li>}
-                      {(user.role !== 'admin') && (
-                        <li><button className=' hover:bg-red-100' onClick={() => updateRoleMutation.mutate({ id: user._id, role: 'admin' })}>Make Admin</button></li>
-                      )}
-                    </ul>
+                    {
+                      user.email !== u.email && <label tabIndex={0} className="btn btn-sm btn-ghost">
+                        <MoreVertical size={18} />
+                      </label>
+                    }
+
+                    {
+                      user.email !== u.email && <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-44">
+
+                        {u.status === 'active' ? (
+                          <li>
+                            <button className="hover:bg-red-100" onClick={() => updateStatusMutation.mutate({ id: u._id, status: 'blocked' })}>
+                              Block
+                            </button>
+                          </li>
+                        ) : (
+                          <li>
+                            <button className="hover:bg-red-100" onClick={() => updateStatusMutation.mutate({ id: u._id, status: 'active' })}>
+                              Unblock
+                            </button>
+                          </li>
+                        )}
+
+                        {(u.role !== 'volunteer') ? (
+                          <li><button className=' hover:bg-red-100' onClick={() => updateRoleMutation.mutate({ id: u._id, role: 'volunteer' })}>Make Volunteer</button></li>
+                        ) : <li><button className=' hover:bg-red-100' onClick={() => updateRoleMutation.mutate({ id: u._id, role: 'donor' })}>Make Donor</button></li>}
+                        {(u.role !== 'admin') && (
+                          <li><button className=' hover:bg-red-100' onClick={() => updateRoleMutation.mutate({ id: u._id, role: 'admin' })}>Make Admin</button></li>
+                        )}
+                      </ul>
+                    }
+
                   </div>
                 </td>
               </tr>

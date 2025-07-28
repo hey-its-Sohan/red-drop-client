@@ -74,8 +74,8 @@ const MyDonationRequests = () => {
 
 
   return (
-    <div className=" max-w-screen-xl mx-auto px-3 md:px-5 lg:px-0">
-      <h2 className="text-xl md:text-2xl font-semibold mb-4 text-primary">My Donation Requests</h2>
+    <div className=" max-w-screen-xl mx-auto px-5 md:px-5 lg:px-0">
+      <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">My Donation Requests</h2>
 
       <div className="mb-4">
         <div className="flex flex-col md:flex-row gap-3 md:gap-5 items-start md:items-center">
@@ -143,7 +143,7 @@ const MyDonationRequests = () => {
                       </div>
                       <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 space-y-1 text-sm">
                         <li>
-                          <Link to={`/dashboard/donation-details/${req._id}`} className="flex items-center gap-2">
+                          <Link to={`/dashboard/donation-request-details/${req._id}`} className="flex items-center gap-2">
                             <Eye size={16} /> View
                           </Link>
                         </li>
@@ -163,13 +163,13 @@ const MyDonationRequests = () => {
                           </>
                         )}
 
-                        {(req.status !== 'Done' && req.status !== 'Canceled') && (
+                        {/* {(req.status !== 'Done' && req.status !== 'Canceled') && (
                           <li>
                             <Link to={`/dashboard/edit-donation/${req._id}`} className="flex items-center gap-2 ">
                               <Edit size={16} /> Edit
                             </Link>
                           </li>
-                        )}
+                        )} */}
 
                         <li>
                           <button onClick={() => handleDelete(req._id)} className="flex items-center gap-2 text-error">

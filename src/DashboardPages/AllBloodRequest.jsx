@@ -81,8 +81,8 @@ const AllBloodRequest = () => {
   };
 
   return (
-    <div className="max-w-screen-xl mx-auto px-3 md:px-5 lg:px-0">
-      <h2 className="text-xl md:text-2xl font-semibold mb-4 text-primary">All Blood Donation Requests</h2>
+    <div className="max-w-screen-xl mx-auto px-5 lg:px-0">
+      <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">All Blood Donation Requests</h2>
 
       {/* Filter */}
       <div className="mb-4">
@@ -162,20 +162,20 @@ const AllBloodRequest = () => {
                           </div>
                           <ul tabIndex={0} className="menu menu-sm dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-48 space-y-1">
                             <li>
-                              <Link to={`/dashboard/donation-details/${req._id}`} className="flex hover:bg-red-100 items-center gap-2">
+                              <Link to={`/dashboard/donation-request-details/${req._id}`} className="flex hover:bg-red-100 items-center gap-2">
                                 <Eye className="w-4 h-4" />
                                 View Details
                               </Link>
                             </li>
 
-                            {(req.status !== 'Done' && req.status !== 'Canceled' && role === 'admin') && (
+                            {/* {(req.status !== 'Done' && req.status !== 'Canceled' && role === 'admin') && (
                               <li>
                                 <Link to={`/dashboard/edit-donation/${req._id}`} className="flex hover:bg-red-100 items-center gap-2">
                                   <Pencil className="w-4 h-4" />
                                   Edit Request
                                 </Link>
                               </li>
-                            )}
+                            )} */}
 
                             {req.status === 'Inprogress' && (
                               <>

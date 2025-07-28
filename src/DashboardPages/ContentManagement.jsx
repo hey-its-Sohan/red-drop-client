@@ -79,9 +79,9 @@ const ContentManagement = () => {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="max-w-6xl mx-auto p-4">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-3">
-        <h2 className="text-2xl font-bold text-primary">Content Management</h2>
+    <div className="max-w-screen-xl mx-auto px-5 lg:px-0">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-3">
+        <h2 className="text-2xl lg:text-4xl font-bold text-primary">Content Management</h2>
         <div className="flex flex-col md:flex-row items-center gap-3">
           <select
             className="select select-bordered max-w-xs"

@@ -1,8 +1,8 @@
 import React, { use } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { AuthContext } from '../Contexts/AuthContext';
+import { Navigate, useLocation } from 'react-router';
 import useUserRole from '../Hooks/useUserRole';
 import Loader from '../Components/Loader';
+import { AuthContext } from '../Contexts/AuthContext';
 
 const AdminRoutes = ({ children }) => {
   const { user, loading } = use(AuthContext);

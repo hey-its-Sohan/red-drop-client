@@ -109,7 +109,7 @@ const DashboardHome = () => {
       {/* Donor's Recent Requests */}
       {role === 'donor' && donationRequests.length > 0 && (
         <div className="overflow-x-auto mt-6">
-          <h2 className="text-2xl font-semibold mb-4 text-primary">Your Recent Donation Requests</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-primary">Recent Donation Requests</h2>
           <table className="table w-full">
             <thead>
               <tr className="bg-base-200">
@@ -131,7 +131,6 @@ const DashboardHome = () => {
                   <td>{req.donationTime}</td>
                   <td>{req.bloodGroup}</td>
                   <td className="capitalize">{req.status}</td>
-
                 </tr>
               ))}
             </tbody>
