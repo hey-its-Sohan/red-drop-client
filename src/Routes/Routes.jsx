@@ -24,6 +24,7 @@ import EditBlog from "../DashboardPages/EditBlog";
 import BloodDonationRequest from "../Pages/BloodDonationRequest";
 import DonationRequestDetails from "../Pages/DonationRequestDetails";
 import BlogDetails from "../Pages/BlogDetails";
+import Search from "../Pages/Search";
 
 
 
@@ -41,6 +42,10 @@ export const router = createBrowserRouter([
       {
         path: "/blood-donation-request",
         Component: BloodDonationRequest,
+      },
+      {
+        path: '/search-donor',
+        Component: Search
       },
       {
         path: '/donation-request/:id',

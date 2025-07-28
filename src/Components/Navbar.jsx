@@ -17,7 +17,8 @@ const Navbar = () => {
   }
 
   const navItems = <>
-    <li className='text-white text-lg'><NavLink to={"/blood-donation-request"}>Donation Request</NavLink></li>
+    <li className='text-white text-lg'><NavLink to={"/blood-donation-request"}>Blood Donation Request</NavLink></li>
+    <li className='text-white text-lg'><NavLink to={"/search-donor"}>Search Donor</NavLink></li>
     <li className='text-white text-lg'><NavLink to={"/blogs"}>Blogs</NavLink></li>
     <li className='text-white text-lg'><NavLink to={"/fund-details"}>Fund Details</NavLink></li>
   </>
@@ -34,7 +35,8 @@ const Navbar = () => {
               <ul
                 tabIndex={0}
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                <li className='text-black text-lg'><NavLink to={"/blood-donation-request"}>Donation Request</NavLink></li>
+                <li className='text-black text-lg'><NavLink to={"/blood-donation-request"}>Blood Donation Request</NavLink></li>
+                <li className='text-black text-lg'><NavLink to={"/search-donor"}>Search Donor</NavLink></li>
                 <li className='text-black text-lg'><NavLink to={"/blogs"}>Blogs</NavLink></li>
                 <li className='text-black text-lg'><NavLink to={"/fund-details"}>Fund Details</NavLink></li>
               </ul>
