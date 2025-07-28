@@ -2,11 +2,12 @@ import React, { use, useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router';
 import axios from 'axios';
-import { Eye, Edit, Trash2, Check, X, Users, Droplet, HandCoins } from 'lucide-react';
+import { Eye, Edit, MoreVertical, Trash2, Check, X, Users, Droplet, HandCoins } from 'lucide-react';
 import { AuthContext } from '../Contexts/AuthContext';
 import Loader from '../Components/Loader';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
 import useUserRole from '../Hooks/useUserRole';
+import Swal from 'sweetalert2';
 
 const DashboardHome = () => {
   const { user, loading } = use(AuthContext);
@@ -22,45 +23,60 @@ const DashboardHome = () => {
     console.log('my user', user);
     console.log(role);
 
-
-
     if (user?.email && role === 'donor') {
       axiosSecure.get(`/my-donation-requests/${user?.email}`)
         .then(res => {
           console.log('this is data', res.data);
           setDonationRequests(res.data.slice(0, 3));
-
         });
     }
     if (role === 'admin' || role === 'volunteer') {
       axiosSecure.get('/dashboard-stats').then(res => setStats(res.data));
     }
+
   }, [user?.email, role, loading]);
 
   if (loading || isLoading) return <Loader />
 
-  const handleStatusChange = (id, status) => {
-    if (loading || isLoading) return <Loader />
-    axios.patch(`/api/donation-requests/${id}`, { status })
-      .then(() => {
-        setDonationRequests(prev => prev.map(req => req._id === id ? { ...req, status } : req));
-      });
-  };
+  // const handleStatusChange = (id, status) => {
+  //   if (loading || isLoading) return <Loader />
+  //   axios.patch(`/api/donation-requests/${id}`, { status })
+  //     .then(() => {
+  //       setDonationRequests(prev => prev.map(req => req._id === id ? { ...req, status } : req));
+  //     });
+  // };
 
-  const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this donation request?')) {
-      axios.delete(`/api/donation-requests/${id}`)
-        .then(() => setDonationRequests(prev => prev.filter(req => req._id !== id)));
-    }
-  };
+
+
+  // const handleDelete = async (id) => {
+  //   const result = await Swal.fire({
+  //     title: 'Are you sure?',
+  //     text: 'You won\'t be able to revert this!',
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#d33',
+  //     cancelButtonColor: '#3085d6',
+  //     confirmButtonText: 'Yes, delete it!'
+  //   });
+
+  //   if (result.isConfirmed) {
+  //     try {
+  //       const res = await axiosSecure.delete(`/donation-requests/${id}`);
+  //       if (res.data.deletedCount > 0) {
+  //         Swal.fire('Deleted!', 'The donation request has been deleted.', 'success')
+  //           .then(() => setDonationRequests(prev => prev.filter(req => req._id !== id)));
+
+  //       }
+  //     } catch (err) {
+  //       console.error(err);
+  //       Swal.fire('Error!', 'Something went wrong.', 'error');
+  //     }
+  //   }
+  // };
 
   return (
     <div className="p-6 space-y-6">
-      {role === 'donor' && (
-        <div className="mt-4 text-sm">
-          <p className="text-gray-600">Fetched: {donationRequests.length} requests</p>
-        </div>
-      )}
+
       <h1 className="text-3xl font-bold text-primary">Welcome, {user?.displayName || 'User'}!</h1>
 
       {/* Admin & Volunteer Stats */}
@@ -103,8 +119,7 @@ const DashboardHome = () => {
                 <th>Time</th>
                 <th>Blood Group</th>
                 <th>Status</th>
-                <th>Donor Info</th>
-                <th>Actions</th>
+
               </tr>
             </thead>
             <tbody>
@@ -116,25 +131,7 @@ const DashboardHome = () => {
                   <td>{req.donationTime}</td>
                   <td>{req.bloodGroup}</td>
                   <td className="capitalize">{req.status}</td>
-                  <td>
-                    {req.status === 'inprogress' && (
-                      <div>
-                        <p>{req.donorName}</p>
-                        <p className="text-sm text-gray-500">{req.donorEmail}</p>
-                      </div>
-                    )}
-                  </td>
-                  <td className="space-x-2">
-                    {req.status === 'inprogress' && (
-                      <>
-                        <button onClick={() => handleStatusChange(req._id, 'done')} className="btn btn-sm btn-success"><Check size={16} /></button>
-                        <button onClick={() => handleStatusChange(req._id, 'canceled')} className="btn btn-sm btn-error"><X size={16} /></button>
-                      </>
-                    )}
-                    <button onClick={() => navigate(`/edit-donation/${req._id}`)} className="btn btn-sm btn-info"><Edit size={16} /></button>
-                    <button onClick={() => handleDelete(req._id)} className="btn btn-sm btn-warning"><Trash2 size={16} /></button>
-                    <button onClick={() => navigate(`/donation/${req._id}`)} className="btn btn-sm btn-primary"><Eye size={16} /></button>
-                  </td>
+
                 </tr>
               ))}
             </tbody>

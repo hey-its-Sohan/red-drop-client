@@ -89,8 +89,8 @@ const ContentManagement = () => {
             onChange={(e) => setFilter(e.target.value)}
           >
             <option value="all">All</option>
-            <option value="draft">Draft</option>
-            <option value="published">Published</option>
+            <option value="Draft">Draft</option>
+            <option value="Published">Published</option>
           </select>
           <button
             className="btn btn-primary text-white"
@@ -116,7 +116,7 @@ const ContentManagement = () => {
                 <h2 className="card-title">{blog.title}</h2>
                 <p className="text-sm mb-2 text-gray-600">Posted At: {blog.createdAt}</p>
 
-                {blog.status === 'published' ? <div className="badge badge-success">{blog.status}</div> :
+                {blog.status === 'Published' ? <div className="badge badge-success">{blog.status}</div> :
                   <div className="badge badge-neutral">{blog.status}</div>}
 
                 {isAdmin && (

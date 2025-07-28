@@ -3,6 +3,9 @@ import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
 import { Link } from 'react-router';
 import Loader from '../Components/Loader';
+import useUserRole from '../Hooks/useUserRole';
+import { MoreVertical, Eye, Pencil, Trash2, Check, X } from 'lucide-react';
+import Swal from 'sweetalert2';
 
 const AllBloodRequest = () => {
   const [statusFilter, setStatusFilter] = useState('all');
@@ -10,8 +13,9 @@ const AllBloodRequest = () => {
   const itemsPerPage = 5;
 
   const axiosSecure = useAxiosSecure();
+  const { role } = useUserRole()
 
-  const { data: allRequests = [], isLoading } = useQuery({
+  const { data: allRequests = [], isLoading, refetch } = useQuery({
     queryKey: ['all-donation-requests'],
     queryFn: async () => {
       const res = await axiosSecure.get('/all-donation-requests');
@@ -19,12 +23,51 @@ const AllBloodRequest = () => {
     },
   });
 
+  const handleMarkAsDone = async (id) => {
+    await axiosSecure.patch(`/donation-requests/${id}`, { status: 'Done' });
+    refetch();
+  };
+
+  const handleCancelRequest = async (id) => {
+    await axiosSecure.patch(`/donation-requests/${id}`, { status: 'Canceled' });
+    refetch();
+  };
+
+  const handleDelete = async (id) => {
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!'
+    });
+
+    if (result.isConfirmed) {
+      try {
+        const res = await axiosSecure.delete(`/donation-requests/${id}`);
+        if (res.data.deletedCount > 0) {
+          Swal.fire('Deleted!', 'The donation request has been deleted.', 'success');
+          refetch();
+
+        }
+      } catch (err) {
+        console.error(err);
+        Swal.fire('Error!', 'Something went wrong.', 'error');
+      }
+    }
+  };
+
+
+
   if (isLoading) return <Loader />;
 
   const filteredRequests =
     statusFilter === 'all'
       ? allRequests
       : allRequests.filter((req) => req.status === statusFilter);
+
 
   const totalPages = Math.ceil(filteredRequests.length / itemsPerPage);
   const paginatedRequests = filteredRequests.slice(
@@ -51,10 +94,10 @@ const AllBloodRequest = () => {
             onChange={handleStatusChange}
           >
             <option value="all">All</option>
-            <option value="pending">Pending</option>
-            <option value="inprogress">In Progress</option>
-            <option value="done">Done</option>
-            <option value="canceled">Canceled</option>
+            <option value="Pending">Pending</option>
+            <option value="Inprogress">In Progress</option>
+            <option value="Done">Done</option>
+            <option value="Canceled">Canceled</option>
           </select>
         </div>
       </div>
@@ -79,60 +122,94 @@ const AllBloodRequest = () => {
               </tr>
             </thead>
             <tbody>
-              {paginatedRequests.map((req, index) => (
-                <tr key={req._id}>
-                  <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
-                  <td>{req.recipientName}</td>
-                  <td>{req.district}, {req.upazila}</td>
-                  <td>{req.donationDate}</td>
-                  <td>{req.donationTime}</td>
-                  <td>{req.bloodGroup}</td>
-                  <td>
-                    <span
-                      className={`badge badge-sm badge-${req.status === 'pending'
-                        ? 'neutral'
-                        : req.status === 'inprogress'
-                          ? 'primary'
-                          : req.status === 'done'
-                            ? 'success'
-                            : 'error'
-                        }`}
-                    >
-                      {req.status}
-                    </span>
-                  </td>
-                  <td>
-                    {req.status === 'inprogress' ? (
-                      <div>
-                        <p>{req.donorName}</p>
-                        <p className="text-xs text-gray-500">{req.donorEmail}</p>
-                      </div>
-                    ) : (
-                      '-'
-                    )}
-                  </td>
-                  <td className="space-x-1">
-                    {req.status === 'inprogress' && (
-                      <>
-                        <button className="btn btn-xs btn-success">Done</button>
-                        <button className="btn btn-xs btn-error">Cancel</button>
-                      </>
-                    )}
-                    {(req.status !== 'done' && req.status !== 'canceled') && (
-                      <Link
-                        to={`/dashboard/edit-donation/${req._id}`}
-                        className="btn btn-xs btn-warning"
-                      >
-                        Edit
-                      </Link>
-                    )}
-                    <button className="btn btn-xs btn-outline btn-error">Delete</button>
-                    <Link to={`/dashboard/donation-details/${req._id}`} className="btn btn-xs btn-info">
-                      View
-                    </Link>
-                  </td>
-                </tr>
-              ))}
+              {paginatedRequests.map((req, index) => {
+
+                const statusColorMap = {
+                  Pending: 'neutral',
+                  Inprogress: 'warning',
+                  Done: 'success',
+                  Canceled: 'error',
+                };
+                const badgeColor = statusColorMap[req.status] || 'default';
+                return (
+                  (
+                    <tr key={req._id}>
+                      <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
+                      <td>{req.recipientName}</td>
+                      <td>{req.district}, {req.upazila}</td>
+                      <td>{req.donationDate}</td>
+                      <td>{req.donationTime}</td>
+                      <td>{req.bloodGroup}</td>
+                      <td>
+                        <span className={`badge badge-sm badge-${badgeColor}`}>
+                          {req.status}
+                        </span>
+                      </td>
+                      <td>
+                        {req.status === 'Inprogress' ? (
+                          <div>
+                            <p>{req.donorName}</p>
+                            <p className="text-xs text-gray-500">{req.donorEmail}</p>
+                          </div>
+                        ) : (
+                          '-'
+                        )}
+                      </td>
+                      <td className="">
+                        <div className="dropdown dropdown-end">
+                          <div tabIndex={0} role="button" className="btn btn-sm btn-ghost">
+                            <MoreVertical size={18} />
+                          </div>
+                          <ul tabIndex={0} className="menu menu-sm dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-48 space-y-1">
+                            <li>
+                              <Link to={`/dashboard/donation-details/${req._id}`} className="flex hover:bg-red-100 items-center gap-2">
+                                <Eye className="w-4 h-4" />
+                                View Details
+                              </Link>
+                            </li>
+
+                            {(req.status !== 'Done' && req.status !== 'Canceled' && role === 'admin') && (
+                              <li>
+                                <Link to={`/dashboard/edit-donation/${req._id}`} className="flex hover:bg-red-100 items-center gap-2">
+                                  <Pencil className="w-4 h-4" />
+                                  Edit Request
+                                </Link>
+                              </li>
+                            )}
+
+                            {req.status === 'Inprogress' && (
+                              <>
+                                <li>
+                                  <button onClick={() => handleMarkAsDone(req._id)} className="flex hover:bg-red-100 items-center gap-2">
+                                    <Check className="w-4 h-4 text-green-600" />
+                                    Mark as Done
+                                  </button>
+                                </li>
+                                <li>
+                                  <button onClick={() => handleCancelRequest(req._id)} className="flex hover:bg-red-100 items-center gap-2">
+                                    <X className="w-4 h-4 text-red-500" />
+                                    Cancel Request
+                                  </button>
+                                </li>
+                              </>
+                            )}
+
+                            {role === 'admin' && (
+                              <li>
+                                <button onClick={() => handleDelete(req._id)} className="flex hover:bg-red-100 items-center gap-2 text-red-600">
+                                  <Trash2 className="w-4 h-4" />
+                                  Delete
+                                </button>
+                              </li>
+                            )}
+                          </ul>
+                        </div>
+                      </td>
+
+                    </tr>
+                  )
+                )
+              })}
             </tbody>
           </table>
         </div>

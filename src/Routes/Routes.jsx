@@ -7,7 +7,6 @@ import SignUp from "../Pages/SignUp";
 import Home from "../Pages/Home";
 import Root from "../Pages/Root";
 import Error from "../Pages/Error";
-import DonationRequest from "../Pages/DonationRequest";
 import Blogs from "../Pages/Blogs";
 import FundDetails from "../Pages/FundDetails";
 
@@ -22,6 +21,9 @@ import AllBloodRequest from "../DashboardPages/AllBloodRequest";
 import ContentManagement from "../DashboardPages/ContentManagement";
 import AddBlog from "../DashboardPages/AddBlog";
 import EditBlog from "../DashboardPages/EditBlog";
+import BloodDonationRequest from "../Pages/BloodDonationRequest";
+import DonationRequestDetails from "../Pages/DonationRequestDetails";
+import BlogDetails from "../Pages/BlogDetails";
 
 
 
@@ -37,12 +39,20 @@ export const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path: "/donation-request",
-        Component: DonationRequest,
+        path: "/blood-donation-request",
+        Component: BloodDonationRequest,
+      },
+      {
+        path: '/donation-request/:id',
+        Component: DonationRequestDetails
       },
       {
         path: "/blogs",
         Component: Blogs,
+      },
+      {
+        path: '/blogs-details/:id',
+        Component: BlogDetails
       },
       {
         path: "/fund-details",

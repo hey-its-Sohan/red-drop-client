@@ -57,7 +57,7 @@ const CreateDonationRequest = () => {
       requesterName: user.displayName,
       requesterEmail: user.email,
       ...formData,
-      status: 'pending',
+      status: 'Pending',
     };
 
     try {

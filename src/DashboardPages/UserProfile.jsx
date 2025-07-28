@@ -2,13 +2,16 @@ import React, { use, useEffect, useState } from 'react';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../Contexts/AuthContext';
+import Loader from '../Components/Loader';
 
 
 const UserProfile = () => {
   const { user } = use(AuthContext);
   const axiosSecure = useAxiosSecure();
   const [isEditing, setIsEditing] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [profileData, setProfileData] = useState({
+
     name: '',
     email: '',
     district: '',
@@ -21,6 +24,7 @@ const UserProfile = () => {
     if (user?.email) {
       axiosSecure.get(`/user-data/${user.email}`).then((res) => {
         setProfileData(res.data);
+        setLoading(false)
       });
     }
   }, [user?.email, axiosSecure]);
@@ -29,6 +33,8 @@ const UserProfile = () => {
     const { name, value } = e.target;
     setProfileData((prev) => ({ ...prev, [name]: value }));
   };
+
+  if (loading) return <Loader />
 
   const handleEdit = () => setIsEditing(true);
 
@@ -93,10 +99,10 @@ const UserProfile = () => {
               <input
                 type="text"
                 name="name"
-                className="input input-bordered w-full"
+                className="input input-bordered text-black w-full"
                 value={profileData.name}
                 onChange={handleChange}
-                disabled={!isEditing}
+                readOnly={!isEditing}
               />
             </div>
             <div>
@@ -117,7 +123,7 @@ const UserProfile = () => {
                   className="input input-bordered w-full"
                   value={profileData.district}
                   onChange={handleChange}
-                  disabled={!isEditing}
+                  readOnly={!isEditing}
                 />
               </div>
               <div>
@@ -128,7 +134,7 @@ const UserProfile = () => {
                   className="input input-bordered w-full"
                   value={profileData.upazila}
                   onChange={handleChange}
-                  disabled={!isEditing}
+                  readOnly={!isEditing}
                 />
               </div>
             </div>
@@ -137,6 +143,7 @@ const UserProfile = () => {
               <select name="bloodGroup"
                 value={profileData.bloodGroup}
                 onChange={handleChange}
+                disabled={!isEditing}
                 className="select select-bordered w-full" required>
                 <option disabled={!isEditing} >Select group</option>
                 {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map(group => (
