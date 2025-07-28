@@ -25,6 +25,7 @@ import BloodDonationRequest from "../Pages/BloodDonationRequest";
 import DonationRequestDetails from "../Pages/DonationRequestDetails";
 import BlogDetails from "../Pages/BlogDetails";
 import Search from "../Pages/Search";
+import PrivateRoutes from "./PrivateRoutes";
 
 
 
@@ -41,7 +42,8 @@ export const router = createBrowserRouter([
       },
       {
         path: "/blood-donation-request",
-        Component: BloodDonationRequest,
+        element: <PrivateRoutes><BloodDonationRequest /></PrivateRoutes>
+
       },
       {
         path: '/search-donor',
@@ -57,11 +59,12 @@ export const router = createBrowserRouter([
       },
       {
         path: '/blogs-details/:id',
-        Component: BlogDetails
+        element: <PrivateRoutes><BlogDetails /></PrivateRoutes>
       },
       {
         path: "/fund-details",
-        Component: FundDetails,
+        element: <PrivateRoutes><FundDetails></FundDetails></PrivateRoutes>
+
       },
       {
         path: "/login",

@@ -92,7 +92,7 @@ const DashboardHome = () => {
           <div className="bg-secondary text-white rounded-xl p-6 shadow-lg flex items-center gap-4">
             <HandCoins size={40} />
             <div>
-              <p className="text-2xl font-bold">${stats.funds}</p>
+              <p className="text-2xl font-bold">${stats.totalFund}</p>
               <p>Total Funds</p>
             </div>
           </div>

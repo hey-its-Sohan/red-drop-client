@@ -45,31 +45,31 @@ const Login = () => {
     }
   };
 
-  const handleGoogleLogin = async () => {
+  // const handleGoogleLogin = async () => {
 
-    try {
-      setLoading(true)
-      await googleSignIn()
-        .then(result => {
-          const user = result.user
+  //   try {
+  //     setLoading(true)
+  //     await googleSignIn()
+  //       .then(result => {
+  //         const user = result.user
 
-          // update user info in the Database
-          const userInfo = {
-            email: user.email,
-            role: 'donor',  //default role for every first user
-            created_at: new Date().toISOString()
-          }
+  //         // update user info in the Database
+  //         const userInfo = {
+  //           email: user.email,
+  //           role: 'donor',  //default role for every first user
+  //           created_at: new Date().toISOString()
+  //         }
 
-          toast.success('Login Successful!');
-          navigate(location?.state || '/');
-        });
-    } catch (error) {
-      console.error("Google login error:", error);
-      toast.error('Google login failed. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
+  //         toast.success('Login Successful!');
+  //         navigate(location?.state || '/');
+  //       });
+  //   } catch (error) {
+  //     console.error("Google login error:", error);
+  //     toast.error('Google login failed. Please try again.');
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <div className="min-h-screen flex">
@@ -128,7 +128,7 @@ const Login = () => {
               {loading ? "Logging in..." : "Login"}
             </button>
 
-            <div className="divider text-sm text-slate-400 my-4">Or</div>
+            {/* <div className="divider text-sm text-slate-400 my-4">Or</div>
 
             <button
               onClick={handleGoogleLogin}
@@ -146,7 +146,7 @@ const Login = () => {
                 </g>
               </svg>
               Login with Google
-            </button>
+            </button> */}
 
             <p className="text-center text-sm mt-2">
               Don't have an account?
