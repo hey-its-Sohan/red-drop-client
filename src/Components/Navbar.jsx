@@ -24,11 +24,11 @@ const Navbar = () => {
     <li className='text-white text-lg'><NavLink to={"/blogs"} className={({ isActive }) => isActive ? " border-b-2 border-primary text-lg pb-1 font-bold" : "font-normal"
     }>Blogs</NavLink ></li>
     <li className='text-white text-lg'><NavLink to={"/fund-details"} className={({ isActive }) => isActive ? " border-b-2 border-primary text-lg pb-1 font-bold" : "font-normal"
-    }>Fund Details</NavLink></li>
+    }>Give Back</NavLink></li>
   </>
 
   return (
-    <div className='bg-secondary z-50 relative'>
+    <div className='bg-secondary '>
       <div className='max-w-screen-xl mx-auto'>
         <div className="navbar">
           <div className="navbar-start">
@@ -46,7 +46,7 @@ const Navbar = () => {
                 <li className='text-black text-lg'><NavLink to={"/blogs"} className={({ isActive }) => isActive ? " border-b-2 border-primary  pb-1 font-bold" : "font-normal"
                 }>Blogs</NavLink></li>
                 <li className='text-black text-lg'><NavLink to={"/fund-details"} className={({ isActive }) => isActive ? " border-b-2 border-primary  pb-1 font-bold" : "font-normal"
-                }>Fund Details</NavLink></li>
+                }>Give Back</NavLink></li>
               </ul>
             </div>
             <div>

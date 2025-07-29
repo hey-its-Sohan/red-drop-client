@@ -98,7 +98,7 @@ const MyDonationRequests = () => {
         <p className="text-gray-500 mt-10 text-center py-10">No donation requests found.</p>
       ) : (
         <div className="w-full mt-10 overflow-auto border border-primary rounded-box shadow-md mb-10">
-          <table className="table min-w-full  text-sm">
+          <table className="table bg-white min-w-full  text-sm">
             <thead>
               <tr>
                 <th>#</th>

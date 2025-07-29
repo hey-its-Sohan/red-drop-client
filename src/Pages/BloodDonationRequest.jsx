@@ -32,7 +32,7 @@ const BloodDonationRequest = () => {
           {pendingRequests.map((request) => (
             <div
               key={request._id}
-              className="bg-white border border-primary rounded-2xl shadow-sm p-6 hover:shadow-lg transition-all"
+              className="bg-white border border-primary rounded-2xl shadow-sm p-6 hover:shadow-lg transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-105  "
             >
               <h3 className="text-xl font-semibold text-gray-800 mb-2">
                 {request.recipientName}

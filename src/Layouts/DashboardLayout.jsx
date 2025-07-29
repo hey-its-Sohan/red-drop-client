@@ -66,13 +66,12 @@ const DashboardLayout = () => {
 
         {/* Sidebar */}
         <aside
-          className={`fixed left-0 z-40 bg-secondary text-white w-64 min-h-screen p-6 transform transition-transform duration-300 ease-in-out
+          className={`fixed top-0 left-0 z-40 bg-secondary text-white w-64 min-h-screen p-6 transform transition-transform duration-300 ease-in-out
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} 
           md:relative md:translate-x-0 md:flex md:flex-col`}
         >
           {/* Close button inside sidebar (mobile only) */}
           <div className="flex justify-between items-center mb-6 md:hidden">
-            <h2 className="text-2xl font-bold">RedDrop</h2>
             <button onClick={toggleSidebar} aria-label="Close Sidebar">
               <X size={24} className="text-base-100" />
             </button>
@@ -134,8 +133,10 @@ const DashboardLayout = () => {
         )}
 
         {/* Main Content */}
-        <main className="flex-1 mt-6 px-4 md:px-6 py-6 overflow-x-hidden max-w-screen-xl mx-auto bg-base-100">
-          <Outlet />
+        <main className="flex-1 px-4 md:px-6 lg:px-8 py-10 overflow-x-hidden max-w-screen-xl mx-auto bg-gradient-to-t from-red-50 to-white">
+          <div className='mt-5 md:mt-0 px-5'>
+            <Outlet />
+          </div>
         </main>
       </div>
     </div>

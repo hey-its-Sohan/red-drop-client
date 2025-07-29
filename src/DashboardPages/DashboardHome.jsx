@@ -1,6 +1,6 @@
 import React, { use, useEffect, useState } from 'react';
 
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import axios from 'axios';
 import { Eye, Edit, MoreVertical, Trash2, Check, X, Users, Droplet, HandCoins } from 'lucide-react';
 import { AuthContext } from '../Contexts/AuthContext';
@@ -8,6 +8,7 @@ import Loader from '../Components/Loader';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
 import useUserRole from '../Hooks/useUserRole';
 import Swal from 'sweetalert2';
+import welcomeBlood from '../assets/welcomeBlood.PNG'
 
 const DashboardHome = () => {
   const { user, loading } = use(AuthContext);
@@ -75,71 +76,105 @@ const DashboardHome = () => {
   // };
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="px-3  space-y-6">
 
-      <h1 className="text-3xl font-bold text-primary">Welcome, {user?.displayName || 'User'}!</h1>
+      <h1 className="text-3xl lg:text-4xl mb-10 font-bold text-primary">Welcome, {user?.displayName || 'User'}!</h1>
 
       {/* Admin & Volunteer Stats */}
       {(role === 'admin' || role === 'volunteer') && (
-        <div className="grid md:grid-cols-3 gap-4">
-          <div className="bg-primary text-white rounded-xl p-6 shadow-lg flex items-center gap-4">
-            <Users size={40} />
+        <>
+          <p className="text-gray-600 text-lg mb-6">
+            As <span className="font-semibold capitalize">{role}</span>, you can view stats, manage blood requests, and contribute to saving lives.
+          </p>
+          <div className='flex flex-col md:flex-row '>
+            <div >
+              <img
+                className='w-96'
+                src={welcomeBlood} alt="" />
+            </div>
             <div>
-              <p className="text-2xl font-bold">{stats.users}</p>
-              <p>Total Donors</p>
+              <div className="grid lg:mt-10 md:grid-cols-3 gap-4">
+                <div className="bg-gradient-to-br from-primary to-red-500  text-white rounded-xl p-6 shadow-lg flex items-center gap-4">
+                  <Users size={40} />
+                  <div>
+                    <p className="text-2xl font-bold">{stats.users}</p>
+                    <p>Total Donors</p>
+                  </div>
+                </div>
+                <div className="bg-secondary text-white rounded-xl p-6 shadow-lg flex items-center gap-4">
+                  <HandCoins size={40} />
+                  <div>
+                    <p className="text-2xl font-bold">${stats.totalFund}</p>
+                    <p>Total Funds</p>
+                  </div>
+                </div>
+                <div className="bg-accent text-white rounded-xl p-6 shadow-lg flex items-center gap-4">
+                  <Droplet size={40} />
+                  <div>
+                    <p className="text-2xl font-bold">{stats.requests}</p>
+                    <p>Blood Requests</p>
+                  </div>
+                </div>
+              </div>
+              <Link to={'/dashboard/create-donation-request'}><button className='btn btn-outline mt-7 btn-primary'>Create Request</button></Link>
             </div>
           </div>
-          <div className="bg-secondary text-white rounded-xl p-6 shadow-lg flex items-center gap-4">
-            <HandCoins size={40} />
-            <div>
-              <p className="text-2xl font-bold">${stats.totalFund}</p>
-              <p>Total Funds</p>
-            </div>
-          </div>
-          <div className="bg-accent text-white rounded-xl p-6 shadow-lg flex items-center gap-4">
-            <Droplet size={40} />
-            <div>
-              <p className="text-2xl font-bold">{stats.requests}</p>
-              <p>Blood Requests</p>
-            </div>
-          </div>
-        </div>
+
+        </>
       )}
 
-      {/* Donor's Recent Requests */}
-      {role === 'donor' && donationRequests.length > 0 && (
-        <div className="overflow-x-auto mt-6">
-          <h2 className="text-2xl font-semibold mb-4 text-primary">Recent Donation Requests</h2>
-          <table className="table w-full">
-            <thead>
-              <tr className="bg-base-200">
-                <th>Recipient</th>
-                <th>Location</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Blood Group</th>
-                <th>Status</th>
+      {/* Donor's Recent Requests table */}
+      {(role === 'donor') && (<>
+        <div className='grid grid-cols-1 lg:grid-cols-2 items-start'>
 
-              </tr>
-            </thead>
-            <tbody>
-              {donationRequests.map(req => (
-                <tr key={req._id}>
-                  <td>{req.recipientName}</td>
-                  <td>{req.district}, {req.upazila}</td>
-                  <td>{req.donationDate}</td>
-                  <td>{req.donationTime}</td>
-                  <td>{req.bloodGroup}</td>
-                  <td className="capitalize">{req.status}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <div className="text-center mt-4">
-            <button onClick={() => navigate('/dashboard/my-donation-requests')} className="btn btn-outline btn-primary">View My All Requests</button>
+          <div className="order-1 lg:order-2 p-0 flex justify-center items-start">
+            <img
+              className='w-96'
+              src={welcomeBlood} alt="" />
           </div>
+
+          {(role === 'donor' && donationRequests.length > 0) ? (
+            <div className="order-2 lg:order-1 overflow-x-auto mt-6">
+              <h2 className="text-2xl md:text-3xl font-semibold mb-5 text-primary">Recent Donation Requests</h2>
+              <div className="w-full mt-10 overflow-auto border border-primary rounded-box shadow-md mb-10">
+                <table className="table min-w-full  bg-white">
+                  <thead>
+                    <tr className="bg-white">
+                      <th>Recipient</th>
+                      <th>Location</th>
+                      <th>Date</th>
+                      <th>Time</th>
+                      <th>Blood Group</th>
+                      <th>Status</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {donationRequests.map(req => (
+                      <tr key={req._id}>
+                        <td>{req.recipientName}</td>
+                        <td>{req.district}, {req.upazila}</td>
+                        <td>{req.donationDate}</td>
+                        <td>{req.donationTime}</td>
+                        <td>{req.bloodGroup}</td>
+                        <td className="capitalize">{req.status}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className="text-center mt-4">
+                <button onClick={() => navigate('/dashboard/my-donation-requests')} className="btn btn-outline btn-primary">View My All Requests</button>
+              </div>
+            </div>
+
+          ) : <div className='order-2 lg:order-1'>
+            <h2 className="text-2xl font-semibold mb-4 mt-10 text-primary">Recent Donation Requests</h2>
+            <h4 className='text-gray-400'>No Donation Request Found.</h4>
+            <Link to={'/dashboard/create-donation-request'}><button className='btn btn-outline mt-7 btn-primary'>Create Request</button></Link>
+          </div>}
         </div>
-      )}
+      </>)}
     </div>
   );
 };

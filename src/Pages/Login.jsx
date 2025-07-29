@@ -26,10 +26,7 @@ const Login = () => {
 
     try {
       setError('');
-
-
       await signInUser(email, password);
-
       toast.success('Login Successfully.');
       navigate(location?.state || '/');
 

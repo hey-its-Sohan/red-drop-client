@@ -3,6 +3,7 @@ import useAxiosSecure from '../Hooks/useAxiosSecure';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../Contexts/AuthContext';
 import Loader from '../Components/Loader';
+import userProfile from '../assets/userProfile.PNG'
 
 
 const UserProfile = () => {
@@ -58,8 +59,8 @@ const UserProfile = () => {
 
   return (
     <div className="max-w-screen-xl mx-auto px-4 py-8">
-      <h2 className="text-3xl font-bold text-primary mb-6 text-center">User Profile</h2>
-      <div className="bg-white shadow-md rounded-lg p-6">
+      <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-6 text-center">Profile Info</h2>
+      <div className="bg-white shadow-md border border-primary/20 rounded-lg p-6">
         <div className="flex justify-between items-center mb-6">
           {!isEditing ? (
             <button className="btn btn-outline btn-primary" onClick={handleEdit}>
@@ -76,7 +77,7 @@ const UserProfile = () => {
           <div className="w-full md:w-1/3 flex flex-col items-center">
             <div className="avatar mb-4">
               <div className="w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img src={profileData.photoURL || '/default-avatar.png'} alt="User Avatar" />
+                <img src={profileData.photoURL || userProfile} alt="User Avatar" />
               </div>
             </div>
             {isEditing && (

@@ -19,7 +19,7 @@ const FeaturedStories = () => {
   return (
     <section className="bg-red-50 py-12 px-4">
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-3xl font-bold text-center text-red-600 mb-10">
+        <h2 className="text-3xl lg:text-4xl font-bold text-center text-primary mb-10">
           Stories That Inspire
         </h2>
         <div className="space-y-8">

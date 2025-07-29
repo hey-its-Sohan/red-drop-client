@@ -25,24 +25,29 @@ const FundDetailsPage = () => {
   } = useQuery({
     queryKey: ['funds', page],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/funds`);
+      const res = await axiosSecure.get('/funds');
       return res.data;
     },
-    enabled: !!user, // Only fetch when user is available
+    enabled: !!user,
   });
 
   if (isLoading) return <Loader />;
   if (isError) {
     toast.error('Failed to fetch funds');
-    return null;
+    return <Loader />;
   }
 
   const { funds, totalPages } = data;
 
   return (
     <div className="max-w-screen-xl mx-auto px-5 lg:px-0 min-h-screen py-7">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl lg:text-4xl mb-5 font-bold text-primary">All Donations</h2>
+      <div className="flex flex-col md:flex-row justify-between items-start mb-6">
+        <div>
+          <h2 className="text-3xl lg:text-4xl mb-5 font-bold text-primary">All Fund Donations</h2>
+          <p className="text-gray-500 mb-6">
+            Help us continue saving lives through your generous support. Together, we're making a difference— <br /> one drop, one donation at a time.
+          </p>
+        </div>
         <button
           className="btn btn-primary text-white text-lg flex items-center gap-2"
           onClick={() => setOpenModal(true)}
@@ -51,7 +56,7 @@ const FundDetailsPage = () => {
         </button>
       </div>
 
-      <div className="overflow-x-auto rounded-lg shadow-md bg-white">
+      <div className="overflow-x-auto border border-primary/20 rounded-lg shadow-md bg-white">
         <table className="table w-full">
           <thead className="bg-base-200">
             <tr className="text-base font-medium">

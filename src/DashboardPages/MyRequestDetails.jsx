@@ -1,17 +1,17 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Link, useParams } from 'react-router';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
 import { AuthContext } from '../Contexts/AuthContext';
-import { toast } from 'react-toastify';
 import { User, Mail, CalendarClock } from 'lucide-react';
 import Loader from '../Components/Loader';
 
 const MyRequestDetails = () => {
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
-  const queryClient = useQueryClient();
+
   const { user } = useContext(AuthContext);
+
 
 
   const { data: request, isLoading } = useQuery({

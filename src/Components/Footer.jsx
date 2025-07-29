@@ -7,6 +7,7 @@ import {
   Github,
   Droplet,
 } from 'lucide-react';
+import logo from '../assets/logo.png'
 
 const Footer = () => {
   return (
@@ -15,9 +16,14 @@ const Footer = () => {
 
         {/* Brand Info */}
         <div>
-          <div className="flex items-center gap-1 mb-3">
+          {/* <div className="flex items-center gap-1 mb-3">
             <Droplet size={36} className="text-primary" fill='#C62828' color="#C62828" />
             <h2 className="text-3xl font-semibold tracking-wide">RedDrop</h2>
+          </div> */}
+          <div>
+            <img
+              className='w-48 mb-2'
+              src={logo} alt="" />
           </div>
           <p className="text-sm text-base-300 leading-relaxed">
             RedDrop connects blood donors with recipients to help save lives. <br />
@@ -33,10 +39,10 @@ const Footer = () => {
               <a href="/" className="hover:text-primary transition">Home</a>
             </li>
             <li>
-              <a href="/donate" className="hover:text-primary transition">Donate</a>
+              <a href="/fund-details" className="hover:text-primary transition">Donate</a>
             </li>
             <li>
-              <a href="/request" className="hover:text-primary transition">Request Blood</a>
+              <a href="/dashboard/create-donation-request" className="hover:text-primary transition">Request Blood</a>
             </li>
             <li>
               <a href="/contact" className="hover:text-primary transition">Contact</a>
@@ -58,14 +64,14 @@ const Footer = () => {
         <div>
           <h3 className="text-2xl font-semibold mb-4">Socials</h3>
           <div className="flex gap-4">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition">
+            <a href="https://www.facebook.com/mahmudul.islam.sohan.2025/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition">
               <Facebook size={24} />
             </a>
 
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition">
+            <a href="https://github.com/hey-its-Sohan" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition">
               <Github size={24} />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition">
+            <a href="https://www.linkedin.com/in/mahmudul-islam-sohan/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition">
               <Linkedin size={24} />
             </a>
           </div>

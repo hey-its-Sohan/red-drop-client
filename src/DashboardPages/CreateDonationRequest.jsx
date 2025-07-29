@@ -83,7 +83,7 @@ const CreateDonationRequest = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-7 py-5 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-6 text-center text-primary">Create Donation Request</h2>
+      <h2 className="text-3xl font-bold mb-6 text-center text-primary">Create Donation Request</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid md:grid-cols-2 gap-4">
           <div>

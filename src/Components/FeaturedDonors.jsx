@@ -27,7 +27,7 @@ const featuredDonors = [
 const FeaturedDonors = () => {
   return (
     <div className="max-w-screen-xl mx-auto py-12 px-5 lg:px-0">
-      <h2 className="text-3xl font-bold text-center text-primary mb-10">
+      <h2 className="text-3xl lg:text-4xl font-bold text-center text-primary mb-10">
         Our Hero Donors
       </h2>
       <div className="grid md:grid-cols-3 gap-8">

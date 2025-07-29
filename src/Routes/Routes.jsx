@@ -6,7 +6,7 @@ import Login from "../Pages/Login";
 import SignUp from "../Pages/SignUp";
 import Home from "../Pages/Home";
 import Root from "../Pages/Root";
-import Error from "../Pages/Error";
+
 import Blogs from "../Pages/Blogs";
 import FundDetails from "../Pages/FundDetails";
 
@@ -28,6 +28,7 @@ import Search from "../Pages/Search";
 import PrivateRoutes from "./PrivateRoutes";
 import AdminRoutes from "./AdminRoutes";
 import MyRequestDetails from "../DashboardPages/MyRequestDetails";
+import Error from "../Pages/Error";
 
 
 

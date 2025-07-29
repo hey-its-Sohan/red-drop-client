@@ -5,6 +5,8 @@ import districts from '../District_Upazila_Data/district.json';
 import upazilas from '../District_Upazila_Data/upazila.json';
 import Loader from '../Components/Loader';
 import donorPhoto from '../assets/userProfile.png'
+import Lottie from 'lottie-react';
+import search from '../assets/Animation/Searching.json'
 
 const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 
@@ -149,7 +151,10 @@ const Search = () => {
       )}
 
       {!loading && donors.length === 0 && (
-        <p className="text-center text-gray-400">No donors found. Try a different search.</p>
+        <>
+          <p className="text-center text-gray-400">No donors found. Try a different search.</p>
+          <Lottie animationData={search} loop={true} className='' />
+        </>
       )}
     </div>
   );

@@ -28,7 +28,7 @@ const AllUsers = () => {
   const updateStatusMutation = useMutation({
     mutationFn: ({ id, status }) => axiosSecure.patch(`/users/status/${id}`, { status }),
     onSuccess: (_, variables) => {
-      toast.success(`User ${variables.status === 'blocked' ? 'blocked' : 'unblocked'} successfully`);
+      toast.success(`User ${variables.status === 'blocked' ? 'Blocked' : 'Unblocked'} Successfully`);
       queryClient.invalidateQueries(['all-users'])
     }
   });

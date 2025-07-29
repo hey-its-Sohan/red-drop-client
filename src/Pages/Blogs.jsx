@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from 'react';
+import React from 'react';
 import useAxiosPublic from '../Hooks/useAxiosPublic';
 import { AuthContext } from '../Contexts/AuthContext';
 import Loader from '../Components/Loader';
@@ -27,9 +27,10 @@ const Blogs = () => {
   return (
     <div className='max-w-screen-xl py-10 min-h-screen mx-auto px-5 lg:px-0'>
       <div className='grid lg:grid-cols-3 gap-5'>
-        {blogs.map(blog => <div className="card bg-white w-96 shadow-md">
+        {blogs.map(blog => <div key={blog._id} className="card bg-white  shadow-md">
           <figure>
             <img
+              className="h-56 w-full object-cover rounded-t-lg"
               src={blog.thumbnail}
               alt="Shoes" />
           </figure>
