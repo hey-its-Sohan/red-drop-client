@@ -1,12 +1,36 @@
-# React + Vite
+# RedDrop - Client Side
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+RedDrop is a modern and secure blood donation web application where users can request and donate blood, contribute to funding efforts, and manage donation activities. This is the frontend (React.js) part of the RedDrop system.
 
-Currently, two official plugins are available:
+### 🌐 Live Site
+https://red-drop-web.netlify.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🔐 Authentication with Firebase
+- 🩸 Create and manage blood donation requests
+- 💰 Funding system integrated with Stripe
+- 🧾 Role-based dashboards for users, donors, volunteers, and admins
+- 📝 Blog and content management
+- 🔎 Filter, sort, and paginate data
+- 📱 Responsive design with mobile-first approach
+- ⚡ Optimized with React Query (TanStack Query) for fast data fetching
+
+---
+
+## 🛠️ Tech Stack
+
+- **React.js**
+- **Tailwind CSS**
+- **React Router**
+- **Firebase Authentication**
+- **Axios (secured via custom hook)**
+- **TanStack Query (React Query)**
+- **Lucide React Icons**
+- **Stripe.js**
+- **Jodit React Editor**
+- **Framer Motion (for animations)**
+- **DaisyUI (for UI components)**
+
