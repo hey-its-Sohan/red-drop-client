@@ -32,7 +32,7 @@ const Blogs = () => {
             <img
               className="h-56 w-full object-cover rounded-t-lg"
               src={blog.thumbnail}
-              alt="Shoes" />
+              alt="Blog Image" />
           </figure>
           <div className="card-body">
             <h2 className="card-title">{blog.title}</h2>
