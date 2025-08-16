@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 const CTA = () => {
   return (
     <div
-      className="hero md:h-[500px] mt-10"
+      className="hero md:h-[500px] bg-slate-100/80"
       style={{
         backgroundImage:
           "url(https://res.cloudinary.com/dpwjurgeu/image/upload/v1755330556/74d488fb-cca3-4868-8ed1-07335057bc15.png)",

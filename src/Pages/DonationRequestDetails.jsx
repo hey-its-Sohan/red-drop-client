@@ -48,7 +48,7 @@ const DonationRequestDetails = () => {
         <p className="text-gray-600">Here are all the details regarding the donation request.</p>
       </div>
 
-      <div className="bg-white  rounded-xl shadow-md p-6 border border-primary grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="bg-white  rounded-xl shadow-md p-6 border-l-4  border-primary/80 grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className='text-lg'><span className="font-semibold">Requester:</span> {request.requesterName}</div>
         <div className='text-lg'><span className="font-semibold">Recipient:</span> {request.recipientName}</div>
         <div className='text-lg'><span className="font-semibold">Email:</span> {request.requesterEmail}</div>
@@ -70,7 +70,7 @@ const DonationRequestDetails = () => {
 
       {request.status === 'Pending' && (
         <button
-          className="mt-8 font-semibold px-6 py-3 rounded-lg bg-primary text-white hover:bg-primary/90 shadow-md transition"
+          className="mt-8 font-semibold px-6 py-3 btn btn-primary text-white shadow-md transition hover:translate-1 ease-in-out duration-200"
           onClick={() => setShowModal(true)}
         >
           Donate Now

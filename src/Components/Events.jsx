@@ -4,8 +4,8 @@ import React from 'react';
 const Events = () => {
   return (
     <div>
-      <section className="py-16 px-5 lg:px-0">
-        <div className="max-w-screen-xl mx-auto">
+      <section className="py-16 px-5 lg:px-0 bg-slate-100/80 ">
+        <div className="max-w-screen-xl mx-auto mb-10">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-secondary">
               Upcoming Events

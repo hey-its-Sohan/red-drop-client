@@ -44,7 +44,7 @@ const BloodDonationRequest = () => {
     );
 
   return (
-    <div className="min-h-screen bg-base-100">
+    <div className="min-h-screen bg-slate-100/80">
       {/* Header */}
       <section className="bg-linear-to-b from-primary from-50% to-secondary py-20 px-5 lg:px-0 text-white ">
         <div className="container mx-auto px-6 text-center max-w-3xl">

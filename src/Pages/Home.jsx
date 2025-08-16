@@ -11,7 +11,7 @@ import CTA from '../Components/CTA';
 
 const Home = () => {
   return (
-    <div className='mt-17'>
+    <div className='mt-16'>
       <Banner />
       <HowItWorks />
       <Impacts />

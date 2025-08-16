@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const ContactUs = () => {
   return (
-    <div className="bg-base-100 py-20 px-5" id="contact">
+    <div className="bg-slate-100/80 py-20 px-5" id="contact">
       <div className="max-w-screen-xl mx-auto text-center">
         <motion.h2
           className="text-3xl md:text-4xl font-bold text-primary mb-6"
