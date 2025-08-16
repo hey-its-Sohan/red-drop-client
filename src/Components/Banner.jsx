@@ -1,13 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router';
-import bannerIMG from '../assets/bannerIMG.JPG'
+import bannerIMG from '../assets/bannerIMG.webp'
 
 const Banner = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-linear-to-b from-primary from-50% to-secondary text-white py-20 px-6 lg:px-0">
+    <div className="bg-linear-to-b from-primary from-50% to-secondary text-white py-20 px-5 lg:px-0">
       <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
         <motion.div
           initial={{ x: -100, opacity: 0 }}
