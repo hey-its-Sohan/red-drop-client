@@ -17,14 +17,14 @@ const stories = [
 
 const FeaturedStories = () => {
   return (
-    <section className="bg-red-50 py-12 px-4">
-      <div className="max-w-5xl mx-auto">
-        <h2 className="text-3xl lg:text-4xl font-bold text-center text-primary mb-10">
+    <section className="bg-red-50 py-16 px-5 lg:px-0">
+      <div className="max-w-screen-xl mx-auto">
+        <h2 className="text-3xl lg:text-4xl font-bold text-center text-secondary mb-10">
           Stories That Inspire
         </h2>
         <div className="space-y-8">
           {stories.map((s, idx) => (
-            <div key={idx} className="bg-white border-l-4 border-red-500 p-6 rounded-xl shadow-sm">
+            <div key={idx} className="bg-white border-l-4 border-primary p-6 rounded-xl shadow-sm">
               <div className="flex items-start gap-4">
                 <img
                   src={s.image}

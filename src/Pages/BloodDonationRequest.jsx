@@ -149,7 +149,7 @@ const BloodDonationRequest = () => {
 
           {/* Call to Action */}
           <div className="text-center mt-12">
-            <div className="card bg-linear-to-t from-primary from-50% to-secondary px-5 py-4 lg:px-0 text-white shadow-md max-w-2xl mx-auto">
+            <div className="card bg-linear-to-t from-primary from-50% to-secondary px-5 lg:px-0 text-white shadow-md max-w-2xl mx-auto">
               <div className="card-body">
                 <h3 className="text-2xl font-bold mb-4">
                   Can't find a matching request?

@@ -17,7 +17,7 @@ const Navbar = () => {
   }
 
   const navItems = <>
-    <li className='text-white text-lg'><NavLink to={"/blood-donation-request"} className={({ isActive }) => isActive ? " border-b-2 border-primary text-lg pb-1 font-bold" : "font-normal"
+    <li className='text-white text-lg '><NavLink to={"/blood-donation-request"} className={({ isActive }) => isActive ? " border-b-2 border-primary text-lg pb-1 font-bold" : "font-normal"
     }>Blood Donation Request</NavLink></li>
     <li className='text-white text-lg'><NavLink to={"/search-donor"} className={({ isActive }) => isActive ? " border-b-2 border-primary text-lg pb-1 font-bold" : "font-normal"
     }>Search Donor</NavLink></li>
