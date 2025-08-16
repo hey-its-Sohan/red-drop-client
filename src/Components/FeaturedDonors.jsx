@@ -26,7 +26,7 @@ const featuredDonors = [
 
 const FeaturedDonors = () => {
   return (
-    <section className='bg-slate-100/80'>
+    <section className='bg-red-100'>
       <div className="max-w-screen-xl mx-auto py-12 px-5 lg:px-0">
         <h2 className="text-3xl lg:text-4xl font-bold text-center text-secondary mb-10">
           Our Hero Donors

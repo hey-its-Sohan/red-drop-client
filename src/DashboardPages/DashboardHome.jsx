@@ -118,8 +118,35 @@ const DashboardHome = () => {
               </div>
               <Link to={'/dashboard/create-donation-request'}><button className='btn btn-outline mt-7 btn-primary'>Create Request</button></Link>
             </div>
-          </div>
 
+          </div>
+          <div className="mt-6 bg-white rounded-xl shadow p-6">
+            <h3 className="text-xl font-semibold mb-4">Monthly Goals</h3>
+            <div className="space-y-4">
+              <div>
+                <div className="flex justify-between mb-1">
+                  <span>Blood Donations</span>
+                  <span>60/100</span>
+                </div>
+                <progress
+                  className="progress progress-primary w-full h-2"
+                  value='60'
+                  max="100"
+                ></progress>
+              </div>
+              <div>
+                <div className="flex justify-between mb-1">
+                  <span>Fundraising</span>
+                  <span>$3000/$5000</span>
+                </div>
+                <progress
+                  className="progress progress-secondary w-full h-2"
+                  value={(stats.monthlyFunds / 5000) * 100}
+                  max="100"
+                ></progress>
+              </div>
+            </div>
+          </div>
         </>
       )}
 

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { MapPin, Droplet, Calendar, Clock, Eye } from "lucide-react";
+import { MapPin, Droplet, Calendar, Clock, Eye, ArrowUpDown, Flame } from "lucide-react";
 import { Link } from "react-router";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import Loader from "../Components/Loader";
@@ -22,9 +22,10 @@ const getBloodGroupColor = (bloodGroup) => {
 
 const BloodDonationRequest = () => {
   const axiosPublic = useAxiosPublic();
+  const [sortOption, setSortOption] = useState("newest"); // 'newest', 'oldest', 'urgent'
 
   const {
-    data: pendingRequests = [],
+    data: allRequests = [],
     isLoading,
     isError,
   } = useQuery({
@@ -33,6 +34,22 @@ const BloodDonationRequest = () => {
       const res = await axiosPublic.get("/blood-donation-requests");
       return res.data;
     },
+  });
+
+  // Sort the requests based on the selected option
+  const sortedRequests = [...allRequests].sort((a, b) => {
+    const dateA = new Date(`${a.donationDate}T${a.donationTime}`);
+    const dateB = new Date(`${b.donationDate}T${b.donationTime}`);
+
+    if (sortOption === "newest") {
+      return dateB - dateA;
+    } else if (sortOption === "oldest") {
+      return dateA - dateB;
+    } else if (sortOption === "urgent") {
+      if (a.requestStatus === "urgent" && b.requestStatus !== "urgent") return -1;
+      if (a.requestStatus !== "urgent" && b.requestStatus === "urgent") return 1;
+      return dateB - dateA;
+    }
   });
 
   if (isLoading) return <Loader />;
@@ -46,7 +63,7 @@ const BloodDonationRequest = () => {
   return (
     <div className="min-h-screen bg-slate-100/80">
       {/* Header */}
-      <section className="bg-linear-to-b from-primary from-50% to-secondary py-20 px-5 lg:px-0 text-white ">
+      <section className="bg-gradient-to-b from-primary from-50% to-secondary py-20 px-5 lg:px-0 text-white ">
         <div className="container mx-auto px-6 text-center max-w-3xl">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Blood Donation Requests
@@ -67,21 +84,54 @@ const BloodDonationRequest = () => {
                 Pending Requests
               </h2>
               <p className="text-gray-500">
-                {pendingRequests.length} requests need your help
+                {sortedRequests.length} requests need your help
               </p>
+            </div>
+
+            {/* Sorting Controls */}
+            <div className="flex items-center gap-2">
+              <span className=" font-semibold text-gray-500">Sort by:</span>
+              <div className="dropdown dropdown-end">
+                <label tabIndex={0} className="btn btn-sm btn-outline btn-primary">
+                  <ArrowUpDown className="w-4 h-4 mr-1" />
+                  {sortOption === "newest" && "Newest First"}
+                  {sortOption === "oldest" && "Oldest First"}
+                  {sortOption === "urgent" && "Urgent First"}
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40"
+                >
+                  <li>
+                    <button onClick={() => setSortOption("newest")}>Newest First</button>
+                  </li>
+                  <li>
+                    <button onClick={() => setSortOption("oldest")}>Oldest First</button>
+                  </li>
+                  <li>
+                    <button onClick={() => setSortOption("urgent")}>
+                      <Flame className="w-4 h-4 text-error" />
+                      Urgent First
+                    </button>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
 
-          {pendingRequests.length === 0 ? (
+          {sortedRequests.length === 0 ? (
             <p className="text-center text-gray-500">
               No pending requests found.
             </p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {pendingRequests.map((request) => (
+              {sortedRequests.map((request) => (
                 <div
                   key={request._id}
-                  className={`card bg-white shadow-md hover:shadow-lg transition-all duration-300 border-l-4 border-primary hover:bg-red-50/50`}
+                  className={`card bg-white shadow-md hover:shadow-lg transition-all duration-300 border-l-4 ${request.requestStatus === "urgent"
+                    ? "border-error"
+                    : "border-primary"
+                    } hover:bg-red-50/50`}
                 >
                   <div className="card-body space-y-4">
                     {/* Header */}
@@ -149,7 +199,7 @@ const BloodDonationRequest = () => {
 
           {/* Call to Action */}
           <div className="text-center mt-12">
-            <div className="card bg-linear-to-t from-primary from-50% to-secondary px-5 lg:px-0 text-white shadow-md max-w-2xl mx-auto">
+            <div className="card bg-gradient-to-t from-primary from-50% to-secondary px-5 lg:px-0 text-white shadow-md max-w-2xl mx-auto">
               <div className="card-body">
                 <h3 className="text-2xl font-bold mb-4">
                   Can't find a matching request?

@@ -3,10 +3,10 @@ import { Mail, MapPin, Phone } from 'lucide-react';
 
 const ContactUs = () => {
   return (
-    <div className="bg-slate-100/80 py-16 px-5" id="contact">
+    <div className="bg-slate-100/80 px-5 pb-20" id="contact">
       <div className="max-w-screen-xl mx-auto">
-        <section className="py-16">
-          <div className="">
+        <section >
+          <div >
             {/* Heading */}
             <div className="text-center mb-12">
               <h2 className="text-3xl lg:text-4xl font-bold mb-4">Contact Us</h2>

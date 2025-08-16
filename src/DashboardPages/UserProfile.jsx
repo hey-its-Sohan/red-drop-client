@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { AuthContext } from '../Contexts/AuthContext';
 import Loader from '../Components/Loader';
 import userProfile from '../assets/userProfile.PNG'
+import { Edit3, Save } from 'lucide-react';
 
 
 const UserProfile = () => {
@@ -60,24 +61,40 @@ const UserProfile = () => {
 
   return (
     <div className="max-w-screen-xl mx-auto px-4 py-8">
-      <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-6 text-center">Profile Info</h2>
-      <div className="bg-white shadow-md border border-primary/20 rounded-lg p-6">
-        <div className="flex justify-between items-center mb-6">
-          {!isEditing ? (
-            <button className="btn btn-outline btn-primary" onClick={handleEdit}>
-              Edit
-            </button>
-          ) : (
-            <button className="btn btn-success" onClick={handleSave}>
-              Save
-            </button>
-          )}
+      <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-2 text-center">My Profile</h2>
+      <p className="text-gray-500 text-center mb-6">Manage your personal information</p>
+      <div className="bg-white shadow-md border border-primary/20 rounded-lg ">
+        {/* header */}
+        <div className="bg-gradient-to-r from-primary to-red-600 p-6 text-white">
+          <div className="flex justify-between items-center">
+            <div>
+              <h3 className="text-2xl font-semibold">{profileData.name}</h3>
+              <p className="text-primary-content/90">{profileData.bloodGroup || 'Blood Group'}</p>
+            </div>
+            {!isEditing ? (
+              <button
+                onClick={handleEdit}
+                className="btn btn-secondary"
+              >
+                <Edit3 className="w-4 h-4 mr-1" />
+                Edit Profile
+              </button>
+            ) : (
+              <button
+                onClick={handleSave}
+                className="btn btn-success "
+              >
+                <Save className="w-4 h-4 mr-1" />
+                Save Changes
+              </button>
+            )}
+          </div>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-8">
+        <div className="flex flex-col md:flex-row gap-3 px-5 py-8">
           <div className="w-full md:w-1/3 flex flex-col items-center">
             <div className="avatar mb-4">
-              <div className="w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+              <div className="w-40 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                 <img src={profileData.photoURL || userProfile} alt="User Avatar" />
               </div>
             </div>

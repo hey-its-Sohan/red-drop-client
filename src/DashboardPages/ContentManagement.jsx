@@ -106,7 +106,7 @@ const ContentManagement = () => {
           <p className="text-gray-500 text-center col-span-full">No blogs found.</p>
         ) : (
           filteredBlogs.map((blog) => (
-            <div key={blog._id} className="card bg-base-100 shadow-lg border border-gray-200">
+            <div key={blog._id} className="card bg-white shadow-lg hover:shadow-primary/25  border border-gray-200">
               {blog.thumbnail && (
                 <figure>
                   <img src={blog.thumbnail} alt="Blog" className="h-48 w-full object-cover rounded-t-lg" />

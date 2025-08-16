@@ -8,6 +8,7 @@ import Facts from '../Components/Facts';
 import Impacts from '../Components/Impacts';
 import Events from '../Components/Events';
 import CTA from '../Components/CTA';
+import FAQ from '../Components/FAQ';
 
 const Home = () => {
   return (
@@ -20,6 +21,7 @@ const Home = () => {
       <FeaturedDonors />
       <Events />
       <CTA />
+      <FAQ />
       <ContactUs />
     </div>
   );
