@@ -1,5 +1,6 @@
 import { Calendar, Clock, MapPin } from 'lucide-react';
 import React from 'react';
+import { Link } from 'react-router';
 
 const Events = () => {
   return (
@@ -40,7 +41,7 @@ const Events = () => {
             ].map((event, index) => (
               <div
                 key={index}
-                className="card bg-white border-l-4 border-primary shadow-md hover:shadow-lg transition-all duration-300"
+                className="card bg-white border-l-4 border-primary shadow-md hover:shadow-xl hover:shadow-primary/10 transition-all duration-300"
               >
                 <div className="card-body">
 
@@ -63,9 +64,9 @@ const Events = () => {
                       {event.location}
                     </div>
                   </div>
-                  <button className="btn btn-outline btn-primary w-full">
+                  <Link to={'/register-event'}><button className="btn btn-outline btn-primary w-full">
                     Register Opening Soon
-                  </button>
+                  </button></Link>
                 </div>
               </div>
             ))}

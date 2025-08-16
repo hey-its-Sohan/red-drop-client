@@ -29,6 +29,7 @@ import PrivateRoutes from "./PrivateRoutes";
 import AdminRoutes from "./AdminRoutes";
 import MyRequestDetails from "../DashboardPages/MyRequestDetails";
 import Error from "../Pages/Error";
+import RegisterEvent from "../Pages/RegisterEvent";
 
 
 
@@ -76,6 +77,10 @@ export const router = createBrowserRouter([
       {
         path: '/sign-up',
         Component: SignUp,
+      },
+      {
+        path: '/register-event',
+        Component: RegisterEvent,
       },
     ]
   },

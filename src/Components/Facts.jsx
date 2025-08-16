@@ -24,7 +24,7 @@ const Facts = () => {
             ].map((fact, index) => (
               <div
                 key={index}
-                className="card bg-white shadow-md hover:shadow-lg transition-all duration-300"
+                className="card bg-white shadow-md hover:shadow-xl hover:shadow-primary/10 transition-all duration-300"
               >
                 <div className="card-body text-center">
                   <div className="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-4">
