@@ -52,7 +52,7 @@ const DashboardLayout = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <div className="flex flex-1 relative ">
+      <div className="flex flex-1 relative mt-17">
         {/* Toggle button for sidebar (Mobile) */}
         {!sidebarOpen && (
           <button

@@ -49,6 +49,7 @@ const UserProfile = () => {
             setIsEditing(false);
           } else {
             toast.info('No changes were made.');
+            setIsEditing(false);
           }
         })
 

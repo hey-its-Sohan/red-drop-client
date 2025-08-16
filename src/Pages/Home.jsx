@@ -7,10 +7,11 @@ import HowItWorks from '../Components/HowITWorks';
 import Facts from '../Components/Facts';
 import Impacts from '../Components/Impacts';
 import Events from '../Components/Events';
+import CTA from '../Components/CTA';
 
 const Home = () => {
   return (
-    <div>
+    <div className='mt-17'>
       <Banner />
       <HowItWorks />
       <Impacts />
@@ -18,6 +19,7 @@ const Home = () => {
       <Facts />
       <FeaturedDonors />
       <Events />
+      <CTA />
       <ContactUs />
     </div>
   );
