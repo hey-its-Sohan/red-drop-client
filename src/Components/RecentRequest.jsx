@@ -44,7 +44,7 @@ const RecentRequest = () => {
 
   return (
     <div className=' bg-slate-100/80'>
-      <section className='max-w-screen-xl mx-auto px-5 lg:px-0 py-16'>
+      <section className='max-w-screen-xl mx-auto px-5 lg:px-0 py-10'>
         <div >
           <div className='mb-10'>
             <h3 className="text-3xl lg:text-4xl text-center font-bold mb-4">Recent Requests</h3>
@@ -127,6 +127,9 @@ const RecentRequest = () => {
               ))}
             </div>
           )}
+          <Link to={'/blood-donation-request'} className='flex justify-center'>
+            <button className='btn btn-primary text-white mt-7 '>View All Requests</button>
+          </Link>
         </div>
       </section>
     </div>

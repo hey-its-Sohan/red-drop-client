@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { MapPin, Droplet, Calendar, Clock, Eye, ArrowUpDown, Flame } from "lucide-react";
+import { MapPin, Calendar, Clock, Eye, ArrowUpDown } from "lucide-react";
 import { Link } from "react-router";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import Loader from "../Components/Loader";
@@ -39,19 +39,33 @@ const BloodDonationRequest = () => {
 
   // Sort the requests based on the selected option
   const sortedRequests = [...allRequests].sort((a, b) => {
-    const dateA = new Date(`${a.donationDate}T${a.donationTime}`);
-    const dateB = new Date(`${b.donationDate}T${b.donationTime}`);
+    const now = new Date();
 
-    if (sortOption === "newest") {
-      return dateB - dateA;
-    } else if (sortOption === "oldest") {
-      return dateA - dateB;
-    } else if (sortOption === "urgent") {
-      if (a.requestStatus === "urgent" && b.requestStatus !== "urgent") return -1;
-      if (a.requestStatus !== "urgent" && b.requestStatus === "urgent") return 1;
-      return dateB - dateA;
+    const dateA = new Date(`${a.donationDate}T${a.donationTime}:00`);
+    const dateB = new Date(`${b.donationDate}T${b.donationTime}:00`);
+
+    const isFutureA = dateA >= now;
+    const isFutureB = dateB >= now;
+
+    // Upcoming requests always come before past requests
+    if (isFutureA && !isFutureB) return -1;
+    if (!isFutureA && isFutureB) return 1;
+
+    // Both upcoming
+    if (isFutureA && isFutureB) {
+      if (sortOption === "newest") return dateA - dateB; // soonest first
+      if (sortOption === "oldest") return dateB - dateA; // farthest first
     }
+
+    // Both past
+    if (!isFutureA && !isFutureB) {
+      if (sortOption === "newest") return dateB - dateA; // most recent past first
+      if (sortOption === "oldest") return dateA - dateB; // oldest past first
+    }
+
+    return 0;
   });
+
 
   if (isLoading) return <Loader />;
   if (isError) return <Error />
@@ -92,7 +106,7 @@ const BloodDonationRequest = () => {
                   <ArrowUpDown className="w-4 h-4 mr-1" />
                   {sortOption === "newest" && "Newest First"}
                   {sortOption === "oldest" && "Oldest First"}
-                  {sortOption === "urgent" && "Urgent First"}
+
                 </label>
                 <ul
                   tabIndex={0}
@@ -103,12 +117,6 @@ const BloodDonationRequest = () => {
                   </li>
                   <li>
                     <button onClick={() => setSortOption("oldest")}>Oldest First</button>
-                  </li>
-                  <li>
-                    <button onClick={() => setSortOption("urgent")}>
-                      <Flame className="w-4 h-4 text-error" />
-                      Urgent First
-                    </button>
                   </li>
                 </ul>
               </div>

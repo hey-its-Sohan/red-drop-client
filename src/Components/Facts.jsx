@@ -4,7 +4,7 @@ import React from 'react';
 const Facts = () => {
   return (
     <div>
-      <section className="py-16 px-5 bg-slate-100/80">
+      <section className="pb-16 pt-10 px-5 bg-slate-100/80">
         <div className="max-w-screen-xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-secondary">

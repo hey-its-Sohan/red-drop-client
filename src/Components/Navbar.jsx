@@ -23,8 +23,14 @@ const Navbar = () => {
     }>Search Donor</NavLink></li>
     <li className='text-white text-lg'><NavLink to={"/blogs"} className={({ isActive }) => isActive ? " border-b-2 border-primary text-lg pb-1 font-bold" : "font-normal"
     }>Blogs</NavLink ></li>
-    <li className='text-white text-lg'><NavLink to={"/fund-details"} className={({ isActive }) => isActive ? " border-b-2 border-primary text-lg pb-1 font-bold" : "font-normal"
-    }>Give Back</NavLink></li>
+    {
+      user && <li className='text-white text-lg'><NavLink to={"/fund-details"} className={({ isActive }) => isActive ? " border-b-2 border-primary text-lg pb-1 font-bold" : "font-normal"
+      }>Give Back</NavLink></li>
+    }
+    {
+      user && <li className='text-white text-lg'><NavLink to={'/dashboard'} className={({ isActive }) => isActive ? " border-b-2 border-primary text-lg pb-1 font-bold" : "font-normal"
+      }>Dashboard</NavLink></li>
+    }
   </>
 
   return (
@@ -78,7 +84,7 @@ const Navbar = () => {
                 <ul
                   tabIndex={0}
                   className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-3 shadow">
-                  <NavLink to={'/dashboard'}><li className='hover:bg-red-100 px-2'>Dashboard</li></NavLink>
+
                   <li onClick={handleSignOut} className='cursor-pointer hover:bg-red-100 px-2'>Logout</li>
                 </ul>
               </div>
