@@ -28,9 +28,15 @@ const FeaturedDonors = () => {
   return (
     <section className='bg-red-100'>
       <div className="max-w-screen-xl mx-auto py-12 px-5 lg:px-0">
-        <h2 className="text-3xl lg:text-4xl font-bold text-center text-secondary mb-10">
-          Our Hero Donors
-        </h2>
+        <div className='mb-10'>
+          <h2 className="text-3xl lg:text-4xl font-bold text-center text-secondary mb-4">
+            Our Hero Donors
+          </h2>
+          <p className="text-lg text-gray-500 text-center">
+            The faces behind the donations: Stories of commitment and compassion
+          </p>
+        </div>
+
         <div className="grid md:grid-cols-3 gap-8">
           {featuredDonors.map((donor, idx) => (
             <div key={idx} className="card bg-white px-4 rounded-xl shadow-md">

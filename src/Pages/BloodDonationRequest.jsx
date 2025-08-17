@@ -4,6 +4,7 @@ import { MapPin, Droplet, Calendar, Clock, Eye, ArrowUpDown, Flame } from "lucid
 import { Link } from "react-router";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import Loader from "../Components/Loader";
+import Error from "./Error";
 
 const getBloodGroupColor = (bloodGroup) => {
   switch (bloodGroup.charAt(0)) {
@@ -53,12 +54,7 @@ const BloodDonationRequest = () => {
   });
 
   if (isLoading) return <Loader />;
-  if (isError)
-    return (
-      <p className="text-center py-20 text-red-500">
-        Something went wrong!
-      </p>
-    );
+  if (isError) return <Error />
 
   return (
     <div className="min-h-screen bg-slate-100/80">
@@ -128,10 +124,10 @@ const BloodDonationRequest = () => {
               {sortedRequests.map((request) => (
                 <div
                   key={request._id}
-                  className={`card bg-white shadow-md hover:shadow-lg transition-all duration-300 border-l-4 ${request.requestStatus === "urgent"
+                  className={`card bg-white shadow-md hover:shadow-xl hover:shadow-primary/20 border-l-4 ${request.requestStatus === "urgent"
                     ? "border-error"
                     : "border-primary"
-                    } hover:bg-red-50/50`}
+                    }`}
                 >
                   <div className="card-body space-y-4">
                     {/* Header */}

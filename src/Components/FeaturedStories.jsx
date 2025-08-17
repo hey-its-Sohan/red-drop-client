@@ -19,9 +19,14 @@ const FeaturedStories = () => {
   return (
     <section className="bg-slate-100/80 py-12 px-5 lg:px-0">
       <div className="max-w-screen-xl mx-auto">
-        <h2 className="text-3xl lg:text-4xl font-bold text-center text-secondary mb-10">
-          Stories That Inspire
-        </h2>
+        <div className='mb-10'>
+          <h2 className="text-3xl lg:text-4xl font-bold text-center text-secondary mb-4">
+            Stories That Inspire
+          </h2>
+          <p className="text-lg text-gray-500 text-center">
+            Personal journeys where strangers became someone's miracle
+          </p>
+        </div>
         <div className="space-y-8">
           {stories.map((s, idx) => (
             <div key={idx} className="bg-white border-l-4 border-primary hover:shadow-lg hover:shadow-primary/10 p-6 rounded-xl shadow-sm">

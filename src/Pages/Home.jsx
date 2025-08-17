@@ -9,6 +9,7 @@ import Impacts from '../Components/Impacts';
 import Events from '../Components/Events';
 import CTA from '../Components/CTA';
 import FAQ from '../Components/FAQ';
+import RecentRequest from '../Components/RecentRequest';
 
 const Home = () => {
   return (
@@ -17,6 +18,7 @@ const Home = () => {
       <HowItWorks />
       <Impacts />
       <FeaturedStories />
+      <RecentRequest />
       <Facts />
       <FeaturedDonors />
       <Events />
