@@ -51,8 +51,14 @@ const Navbar = () => {
                 }>Search Donor</NavLink></li>
                 <li className='text-black text-lg'><NavLink to={"/blogs"} className={({ isActive }) => isActive ? " border-b-2 border-primary  pb-1 font-bold" : "font-normal"
                 }>Blogs</NavLink></li>
-                <li className='text-black text-lg'><NavLink to={"/fund-details"} className={({ isActive }) => isActive ? " border-b-2 border-primary  pb-1 font-bold" : "font-normal"
-                }>Give Back</NavLink></li>
+                {
+                  user && <li className='text-black text-lg'><NavLink to={"/fund-details"} className={({ isActive }) => isActive ? " border-b-2 border-primary  pb-1 font-bold" : "font-normal"
+                  }>Give Back</NavLink></li>
+                }
+                {
+                  user && <li className='text-black text-lg'><NavLink to={'/dashboard'} className={({ isActive }) => isActive ? " border-b-2 border-primary  pb-1 font-bold" : "font-normal"
+                  }>Dashboard</NavLink></li>
+                }
               </ul>
             </div>
             <div>

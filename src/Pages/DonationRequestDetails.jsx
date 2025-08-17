@@ -70,12 +70,27 @@ const DonationRequestDetails = () => {
         </div>
 
         {request.status === 'Pending' && (
-          <button
-            className="mt-8 font-semibold px-6 py-3 btn btn-primary text-white shadow-md "
-            onClick={() => setShowModal(true)}
-          >
-            Donate Now
-          </button>
+          <div className='mt-8'>
+            {
+              !user && <p className='text-primary font-semibold text-sm'>*Login to Donate Blood</p>
+
+            }
+            {
+              user ? <button
+                className="mt-3 font-semibold px-6 py-3 btn btn-primary text-white shadow-md "
+                onClick={() => setShowModal(true)}
+              >
+                Donate Now
+              </button> :
+                <button
+                  disabled
+                  className="mt-3 font-semibold px-6 py-3 btn btn-primary text-white shadow-md "
+                  onClick={() => setShowModal(true)}
+                >
+                  Donate Now
+                </button>
+            }
+          </div>
         )}
 
         {/* DaisyUI Modal */}
